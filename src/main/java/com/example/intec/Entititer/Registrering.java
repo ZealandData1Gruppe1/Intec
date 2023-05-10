@@ -3,22 +3,20 @@ package com.example.intec.Entititer;
 import java.util.Date;
 
 public class Registrering {
+    int id;
     Person registreringPerson;
     Date registreringTidspunkt;
     String lokation;
-    int id;
-
 
     public Registrering()
     {
 
     }
-    public Registrering(Person registreringPerson, Date registreringTidspunkt, String lokation, int id)
+    public Registrering(Person registreringPerson, Date registreringTidspunkt, String lokation)
     {
         this.registreringPerson = registreringPerson;
         this.registreringTidspunkt = registreringTidspunkt;
         this.lokation = lokation;
-        this.id = id;
     }
 
     public Person getRegistreringPerson() {
