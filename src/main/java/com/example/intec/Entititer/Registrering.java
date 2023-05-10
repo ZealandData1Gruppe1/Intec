@@ -6,17 +6,18 @@ import java.util.Date;
 public class Registrering {
     int id;
     Person registreringPerson;
-    LocalDate registreringTidspunkt;
+    LocalDate tjekinTidspunkt;
+    LocalDate tjekudTidspunkt;
     String lokation;
 
     public Registrering()
     {
 
     }
-    public Registrering(Person registreringPerson, LocalDate registreringTidspunkt, String lokation)
+    public Registrering(Person registreringPerson, LocalDate tjekinTidspunkt, String lokation)
     {
         this.registreringPerson = registreringPerson;
-        this.registreringTidspunkt = registreringTidspunkt;
+        this.tjekinTidspunkt  = tjekinTidspunkt;
         this.lokation = lokation;
     }
 
@@ -28,12 +29,20 @@ public class Registrering {
         this.registreringPerson = registreringPerson;
     }
 
-    public LocalDate getRegistreringTidspunkt() {
-        return registreringTidspunkt;
+    public LocalDate getTjekinTidspunkt() {
+        return tjekinTidspunkt;
     }
 
-    public void setRegistreringTidspunkt(LocalDate registreringTidspunkt) {
-        this.registreringTidspunkt = registreringTidspunkt;
+    public void setTjekinTidspunkt(LocalDate tjekinTidspunkt) {
+        this.tjekinTidspunkt = tjekinTidspunkt;
+    }
+
+    public LocalDate getTjekudTidspunkt() {
+        return tjekudTidspunkt;
+    }
+
+    public void setTjekudTidspunkt(LocalDate tjekudTidspunkt) {
+        this.tjekudTidspunkt = tjekudTidspunkt;
     }
 
     public String getLokation() {

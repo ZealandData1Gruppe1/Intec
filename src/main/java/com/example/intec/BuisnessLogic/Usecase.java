@@ -8,6 +8,8 @@ import com.example.intec.Entititer.Registrering;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Usecase {
 
@@ -26,6 +28,7 @@ public class Usecase {
         {
             db.opretPerson(p);
             person = db.hentPerson(p.getIdNR());
+            person.setFirma(p.getFirma());
 
         }
         Registrering r = new Registrering(person, LocalDate.now(), location);
@@ -58,5 +61,19 @@ public class Usecase {
        }
     return new Firma();
     }
+
+    public ArrayList<Firma> hentTransportFirmaer()
+    {
+      ArrayList<Firma> transportFirmaListen=db.hentTransportFirmaListe();
+      for(int i =0; i<transportFirmaListen.size();i++)
+      {
+          if(transportFirmaListen.get(i).getFirmanavn().equalsIgnoreCase("other"))
+          {
+              Collections.swap(transportFirmaListen,i,transportFirmaListen.size()-1);
+          }
+      }
+      return transportFirmaListen;
+    }
+
 
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Chauffør</title>
+</head>
+<body>
+<form action="http://localhost:8080/registrerChauffør" method="post" th:object="${person}">
+    <input type="text" th:field="*{fornavn}" name="fname" />
+    <input type="text" th:field="*{efternavn}" name="lname" />
+    <input type="number" th:field="*{idNR}" name="idNR" />
+    <select th:field="*{firma.firmanavn}" name="firma">
+        <option value="">Vælg Firma</option>
+        <option th:each="firma : ${firmaliste}"
+                th:value="${firma.firmanavn}"
+                th:text="${firma.firmanavn}"></option>
+    </select>
+
+    <input type="submit" value="Gem">
+</form>
+
+</body>
+</html>

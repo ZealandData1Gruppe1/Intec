@@ -3,55 +3,43 @@ package com.example.intec.UIController;
 import com.example.intec.BuisnessLogic.Usecase;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
-import com.example.intec.Entititer.TransportFirma;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import static com.example.intec.Entititer.TransportFirma.GLS;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
 
 @Controller
 public class indexController {
 
-
-    @GetMapping("/index")
-    public String visForside()
+    Usecase uc = new Usecase();
+    @GetMapping("/registrerChauffør")
+    public String registrerChauf(Model model)
     {
-        return "index";
+        Person person = new Person();
+        ArrayList<Firma> firmaListe = uc.hentTransportFirmaer();
+        model.addAttribute("firmaliste", firmaListe);;
+        model.addAttribute("person", person);
+        return "registrerChauffør";
     }
-
-    @PostMapping("/registrerPerson")
-    public String registrerPersonGem(Model model)
-    {
-        Person p = new Person();
-        model.addAttribute("Person", p);
-        Usecase uc = new Usecase();
-        uc.RegistrerPerson(p);
-        return "index";
-    }
-
     @PostMapping("/registrerChauffør")
-    public String registrerChaufførGem(Model model)
-    {
-        Usecase uc = new Usecase();
-        Person p = new Person();
-        String nytFirma ="";
-        TransportFirma t = GLS;
-        model.addAttribute("Person", p);
-        model.addAttribute("Transportfirma", t);
-        model.addAttribute("Nyt Firma", nytFirma);
-        if(t.equals("Other"))
+    public String registerChauffeur(@ModelAttribute("person") Person person) {
+        if (person.getFirma().getFirmanavn().equalsIgnoreCase("Other"))
         {
-            Firma f2 = uc.hentFirma(nytFirma);
-            p.setFirma(f2);
+            Firma f2 = uc.hentFirma(person.getFirma().getFirmanavn());
+            person.setFirma(f2);
         }
         else
         {
-            Firma f1 = uc.hentFirma(t.getFirmaString());
-            p.setFirma(f1);
+            Firma f1 = uc.hentFirma(person.getFirma().getFirmanavn());
+            person.setFirma(f1);
         }
-        uc.RegistrerPerson(p);
-        return "index";
+        uc.RegistrerPerson(person);
+        return "redirect:/index";
     }
 }

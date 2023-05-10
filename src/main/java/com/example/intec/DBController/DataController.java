@@ -4,10 +4,8 @@ import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class DataController {
     private Connection connection;
@@ -38,7 +36,7 @@ public class DataController {
     public void insertRegistration(Registrering r)
     {
         try {
-            String sql= "insert into registration (fname, lname, company, checkin, licenseid, locationid) VALUES ('"+r.getRegistreringPerson().getFornavn()+"','"+r.getRegistreringPerson().getEfternavn()+"','"+r.getRegistreringPerson().getFirma()+"','"+r.getRegistreringTidspunkt()+"','"+r.getRegistreringPerson().getIdNR()+"',"+locationID+")";
+            String sql= "insert into registration (checkin, pid, locationid) VALUES ('"+r.getTjekinTidspunkt()+"' , "+r.getRegistreringPerson().getIdNR()+" , "+locationID+")";
         Statement stmt = connection.createStatement();
         stmt.execute(sql);
         stmt.close();
@@ -50,12 +48,15 @@ public class DataController {
     public Firma hentTransportFirma(String firmanavn)
     {
         Firma firma = new Firma();
-
-        try{
-            String sql = "Hent Transportfirma";
-        Statement stmt = connection.createStatement();
-        stmt.execute(sql);
-        stmt.close();
+            try{
+                String sql = "Select * from transportcompany WHERE companyname ='"+firmanavn+"'";
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+                while(rs.next()){
+                    firma.setID(rs.getInt("id"));
+                    firma.setFirmanavn(rs.getString("companyname"));
+                }
+                stmt.close();
         } catch (SQLException e) {
         throw new RuntimeException(e);
     }
@@ -101,24 +102,52 @@ public class DataController {
     public void opretPerson(Person p)
     {
         try{
-            String sql = "insert into person (idNR, fname,lname,companyID) VALUES ('"+p.getIdNR()+", '"+p.getFornavn()+"', '"+p.getEfternavn()+"', "+p.getFirma().getID()+")";
+            String sql = "insert into person (idnr, fname, lname, companyID) VALUES ("+p.getIdNR()+" , '"+p.getFornavn()+"' , '"+p.getEfternavn()+"', "+p.getFirma().getID()+")";
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
             stmt.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
         }
     }
     public Person hentPerson(int ID)
     {
+        Person person = new Person();
         try{
-            String sql = "SELECT * from person WHERE idNR ="+ID;
+            String sql = "SELECT * from person WHERE idnr ="+ID;
             Statement stmt = connection.createStatement();
-            stmt.execute(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                {
+                    person.setIdNR(rs.getInt("idnr"));
+                    person.setFornavn(rs.getString("fname"));
+                    person.setEfternavn(rs.getString("lname"));
+                }
+            }
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return new Person();
+        return person;
+    }
+
+    public ArrayList<Firma> hentTransportFirmaListe()
+    {
+        ArrayList<Firma> transportFirmaListen = new ArrayList<>();
+        try{
+            String sql = "Select * from transportcompany";
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+            Firma f1 = new Firma();
+            f1.setID(rs.getInt("id"));
+            f1.setFirmanavn(rs.getString("companyname"));
+            transportFirmaListen.add(f1);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return transportFirmaListen;
     }
 }

@@ -1,12 +1,10 @@
 package com.example.intec.Entititer;
 
 public class Person {
-    int idNR;
-    String fornavn;
-    String efternavn;
-
-    Firma firma;
-
+    private int idNR;
+    private String fornavn;
+    private String efternavn;
+    private Firma firma;
 
     public Person(){
 
@@ -47,5 +45,15 @@ public class Person {
 
     public void setFirma(Firma firma) {
         this.firma = firma;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "idNR=" + idNR +
+                ", fornavn='" + fornavn + '\'' +
+                ", efternavn='" + efternavn + '\'' +
+                ", firma=" + firma +
+                '}';
     }
 }
