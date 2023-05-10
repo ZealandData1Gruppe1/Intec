@@ -1,19 +1,19 @@
 package com.example.intec.Entititer;
 
 public class Person {
+    int idNR;
     String fornavn;
     String efternavn;
-    String koerekortNR;
-    String firma;
+
+    Firma firma;
 
 
     public Person(){
 
     }
-    public Person(String fornavn, String efternavn, String koerekortNR, String firma) {
+    public Person(String fornavn, String efternavn, Firma firma) {
         this.fornavn = fornavn;
         this.efternavn = efternavn;
-        this.koerekortNR = koerekortNR;
         this.firma = firma;
     }
 
@@ -33,19 +33,19 @@ public class Person {
         this.efternavn = efternavn;
     }
 
-    public String getKoerekortNR() {
-        return koerekortNR;
+    public int getIdNR() {
+        return idNR;
     }
 
-    public void setKoerekortNR(String koerekortNR) {
-        this.koerekortNR = koerekortNR;
+    public void setIdNR(int idNR) {
+        this.idNR = idNR;
     }
 
-    public String getFirma() {
+    public Firma getFirma() {
         return firma;
     }
 
-    public void setFirma(String firma) {
+    public void setFirma(Firma firma) {
         this.firma = firma;
     }
 }

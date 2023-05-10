@@ -1,18 +1,19 @@
 package com.example.intec.Entititer;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Registrering {
     int id;
     Person registreringPerson;
-    Date registreringTidspunkt;
+    LocalDate registreringTidspunkt;
     String lokation;
 
     public Registrering()
     {
 
     }
-    public Registrering(Person registreringPerson, Date registreringTidspunkt, String lokation)
+    public Registrering(Person registreringPerson, LocalDate registreringTidspunkt, String lokation)
     {
         this.registreringPerson = registreringPerson;
         this.registreringTidspunkt = registreringTidspunkt;
@@ -27,11 +28,11 @@ public class Registrering {
         this.registreringPerson = registreringPerson;
     }
 
-    public Date getRegistreringTidspunkt() {
+    public LocalDate getRegistreringTidspunkt() {
         return registreringTidspunkt;
     }
 
-    public void setRegistreringTidspunkt(Date registreringTidspunkt) {
+    public void setRegistreringTidspunkt(LocalDate registreringTidspunkt) {
         this.registreringTidspunkt = registreringTidspunkt;
     }
 
