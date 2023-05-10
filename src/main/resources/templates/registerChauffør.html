@@ -2,9 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Register Chauffør</title>
 </head>
 <body>
+<form>
+    <label for="fname">Fornavn:</label><br>
+    <input type="text" id="fname" name="fname"><br>
+    <label for="lname">Efternavn:</label><br>
+    <input type="text" id="lname" name="lname"><br>
+    <label for="koerekortNR">Kørerkort Nummer:</label><br>
+    <input type="text" id="koerekortNR" name="koerekort"><br>
+    <label for="firma">Firma</label>
+    <select id="firma">
+        <option value="ups">UPS</option>
+        <option value="gls">GLS</option>
+        <option value="postnord">Post Nord</option>
+    </select><br>
+    <input type="submit" value="Gem">
+</form>
 
 </body>
 </html>
