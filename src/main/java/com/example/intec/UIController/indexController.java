@@ -31,19 +31,7 @@ public class indexController {
     }
     @PostMapping("/registrerChauffør")
     public String registerChauffeur(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn) {
-        Person p1 = uc.tjekOmPersonFindesEllerOpret(person);
-
-        if (person.getFirma().getFirmanavn().equalsIgnoreCase("Other"))
-        {
-            uc.tjekFirmaFindesEllerOpret(otherFirmanavn);
-            uc.tilfoejPerscomp(p1,otherFirmanavn);
-        }
-        else
-        {
-            Firma f1 = uc.hentTransportFirma(person.getFirma().getFirmanavn());
-            p1.setFirma(f1);
-        }
-        uc.RegistrerPerson(p1);
+        uc.RegistrerPerson(person,otherFirmanavn);
         return "redirect:/index";
     }
 }

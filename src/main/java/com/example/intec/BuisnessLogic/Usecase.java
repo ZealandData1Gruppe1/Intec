@@ -4,6 +4,7 @@ import com.example.intec.DBController.DataController;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
+import org.springframework.http.server.DelegatingServerHttpResponse;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,44 +22,54 @@ public class Usecase {
         this.db = new DataController(location);
     }
 
-    public void RegistrerPerson(Person p)
+    public void RegistrerPerson(Person p, String othercompany)
     {
-        Person person = db.hentPerson(p.getIdNR());
-        if(person.getIdNR()<=0)
+        Person person = new Person();
+        Firma hentetFirma = new Firma();
+        if(p.getFirma().getFirmanavn().equalsIgnoreCase("other"))
         {
-            db.opretPerson(p);
-            person = db.hentPerson(p.getIdNR());
-            person.setFirma(p.getFirma());
-
-        }
-        Registrering r = new Registrering(person, LocalDate.now(), location);
-        if(p.getFirma().getID()==10) //10 = "Other firma" er valgt i HTML form
-        {
+            if(findesOtherCompany(othercompany) == false)
+            {
+                db.opretOtherFirma(othercompany);
+                hentetFirma = db.hentOtherFirma(othercompany);
+            }
+            else
+            {
+                hentetFirma = db.hentOtherFirma(othercompany);
+            }
+            if (findesPerson(p.getIdNR()) == false)
+            {
+                Firma other = db.hentTransportFirma("OTHER");
+                p.setFirma(other);
+                db.opretPerson(p);
+                person = db.hentPerson(p.getIdNR());
+            }
+            else
+            {
+                person = db.hentPerson(p.getIdNR());
+            }
+            person.setFirma(db.hentOtherFirma(othercompany));
             db.insertPersComp(person);
         }
+        else {
+            Firma firma = db.hentTransportFirma(p.getFirma().getFirmanavn());
+            p.setFirma(firma);
+            if (findesPerson(p.getIdNR()) == false)
+            {
+                db.opretPerson(p);
+                person = db.hentPerson(p.getIdNR());
+                person.setFirma(firma);
+            }
+            else {
+                person = db.hentPerson(p.getIdNR());
+                person.setFirma(firma);
+            }
+        }
+
+        Registrering r = new Registrering(person, LocalDate.now(), location);
         db.insertRegistration(r);
 
     }
-    public void tjekFirmaFindesEllerOpret(String firmanavn)
-    {
-        Firma F1  = db.hentTransportFirma(firmanavn);
-       if (F1.getID() >0) {
-           return;
-       }
-       else if(F1.getID()<=0)
-       {
-           Firma F2 =db.hentOtherFirma(firmanavn);
-           if(F2.getID() >0)
-           {
-               return;
-           }
-           else
-           {
-               db.opretOtherFirma(firmanavn);
-           }
-       }
-    }
-
 
     public void tilfoejPerscomp(Person p, String firmanavn){
         Firma f1 = db.hentOtherFirma(firmanavn);
@@ -67,12 +78,9 @@ public class Usecase {
 
     }
 
-
     public Firma hentTransportFirma(String firmanavn) {
         return db.hentTransportFirma(firmanavn);
     }
-
-
 
     public ArrayList<Firma> hentTransportFirmaer()
     {
@@ -87,18 +95,30 @@ public class Usecase {
       return transportFirmaListen;
     }
 
-
-    public Person tjekOmPersonFindesEllerOpret(Person p) {
-        Person p1 = db.hentPerson(p.getIdNR());
-        if (p1.getIdNR() >0)
+    public boolean findesPerson(int idnr)
+    {;
+        Person p1 = db.hentPerson(idnr);
+        if(p1.getIdNR() > 0)
         {
-            return p1;
+            return true;
         }
-        else {
-            db.opretPerson(p);
-            Person p2 = db.hentPerson(p.getIdNR());
-            return p2;
+        else return false;
+    }
+    public boolean findesTransportCompany(String firmanavn)
+    {
+        if (db.hentTransportFirma(firmanavn).getID() >0)
+        {
+            return true;
         }
+        else return false;
+    }
+    public boolean findesOtherCompany(String firmanavn)
+    {
+        if (db.hentOtherFirma(firmanavn).getID() > 0)
+        {
+            return true;
+        }
+        else return false;
     }
 
 

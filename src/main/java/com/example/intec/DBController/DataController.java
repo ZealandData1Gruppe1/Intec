@@ -95,7 +95,7 @@ public class DataController {
     public void insertPersComp(Person p)
     {
         try{
-            String sql = "insert into PersComp (pid, cid) VALUES('"+p.getIdNR()+", "+p.getFirma().getID()+")";
+            String sql = "insert into percomp (pid, cid) VALUES("+p.getIdNR()+" , "+p.getFirma().getID()+")";
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
             stmt.close();
