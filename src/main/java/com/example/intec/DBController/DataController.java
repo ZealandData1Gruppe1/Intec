@@ -68,7 +68,11 @@ public class DataController {
         try{
             String sql = "Select * from otherCompany where companyname = '"+firmanavn+"'";
             Statement stmt = connection.createStatement();
-            stmt.execute(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                firma.setFirmanavn(rs.getString("companyname"));
+                firma.setID(rs.getInt("id"));
+            }
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -118,11 +122,9 @@ public class DataController {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
-                {
                     person.setIdNR(rs.getInt("idnr"));
                     person.setFornavn(rs.getString("fname"));
                     person.setEfternavn(rs.getString("lname"));
-                }
             }
             stmt.close();
         } catch (SQLException e) {
