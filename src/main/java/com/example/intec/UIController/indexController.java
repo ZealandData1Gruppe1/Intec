@@ -23,7 +23,7 @@ public class indexController {
     {
         Person person = new Person();
         ArrayList<Firma> firmaListe = uc.hentTransportFirmaer();
-        model.addAttribute("firmaliste", firmaListe);;
+        model.addAttribute("firmaliste", firmaListe);
         model.addAttribute("person", person);
         return "registrerChauffør";
     }
