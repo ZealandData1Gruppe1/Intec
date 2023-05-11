@@ -1,24 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <link rel="stylesheet" href="ui_styles.css">
     <meta charset="UTF-8">
     <title>Register Chauffør</title>
 </head>
 <body>
+<div class="container">
+    <div class="item">
+        <img src="logo.jpg" style="width:10em; height:3em;" />
+    </div>
+</div>
+<div class="formtext">
 <form action="http://localhost:8080/registrerChauffør" method="post" th:object="${person}">
+    <th: for="fname" >Fornavn</th:>
     <input type="text" th:field="*{fornavn}" name="fname" />
+    <th: for="lname" >Efternavn</th:>
     <input type="text" th:field="*{efternavn}" name="lname" />
+    <th: for="idNR" >Kørekort Nummer</th:>
     <input type="number" th:field="*{idNR}" name="idNR" />
-    <select th:field="*{firma.firmanavn}" name="firma">
+    <select th:field="*{firma}" name="firma">
         <option value="">Vælg Firma</option>
         <option th:each="firma : ${firmaliste}"
-                th:value="${firma.firmanavn}"
-                th:text="${firma.firmanavn}"></option>
-    </select>
-    <input type="text" th:value="${otherFirmanavn}" name="otherFirmanavn" />
+                th:value="${firma}"
+                th:text="${firma.firmanavn}">
 
+        </option>
+
+    </select>
+    <th: for="otherFirmanavn" >Firma ikke på listen</th:>
+    <input type="text" th:value="${otherFirmanavn}" name="otherFirmanavn"/>
     <input type="submit" value="Gem">
 </form>
-
+</div>
 </body>
 </html>

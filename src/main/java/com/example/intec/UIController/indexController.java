@@ -24,13 +24,17 @@ public class indexController {
         Person person = new Person();
         ArrayList<Firma> firmaListe = uc.hentTransportFirmaer();
         String otherFirmanavn = " ";
+
         model.addAttribute("firmaliste", firmaListe);
         model.addAttribute("person", person);
         model.addAttribute("otherFirmanavn",otherFirmanavn);
+
         return "registrerChauffør";
     }
     @PostMapping("/registrerChauffør")
     public String registerChauffeur(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn) {
+
+
         uc.RegistrerPerson(person,otherFirmanavn);
         return "redirect:/index";
     }
