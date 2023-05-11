@@ -23,23 +23,27 @@ public class indexController {
     {
         Person person = new Person();
         ArrayList<Firma> firmaListe = uc.hentTransportFirmaer();
+        String otherFirmanavn = " ";
         model.addAttribute("firmaliste", firmaListe);
         model.addAttribute("person", person);
+        model.addAttribute("otherFirmanavn",otherFirmanavn);
         return "registrerChauffør";
     }
     @PostMapping("/registrerChauffør")
-    public String registerChauffeur(@ModelAttribute("person") Person person) {
+    public String registerChauffeur(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn) {
+        Person p1 = uc.tjekOmPersonFindesEllerOpret(person);
+
         if (person.getFirma().getFirmanavn().equalsIgnoreCase("Other"))
         {
-            Firma f2 = uc.hentFirma(person.getFirma().getFirmanavn());
-            person.setFirma(f2);
+            uc.tjekFirmaFindesEllerOpret(otherFirmanavn);
+            uc.tilfoejPerscomp(p1,otherFirmanavn);
         }
         else
         {
-            Firma f1 = uc.hentFirma(person.getFirma().getFirmanavn());
-            person.setFirma(f1);
+            Firma f1 = uc.hentTransportFirma(person.getFirma().getFirmanavn());
+            p1.setFirma(f1);
         }
-        uc.RegistrerPerson(person);
+        uc.RegistrerPerson(p1);
         return "redirect:/index";
     }
 }

@@ -39,28 +39,40 @@ public class Usecase {
         db.insertRegistration(r);
 
     }
-    public Firma hentFirma(String firmanavn)
+    public void tjekFirmaFindesEllerOpret(String firmanavn)
     {
         Firma F1  = db.hentTransportFirma(firmanavn);
        if (F1.getID() >0) {
-            return F1;
+           return;
        }
        else if(F1.getID()<=0)
        {
            Firma F2 =db.hentOtherFirma(firmanavn);
            if(F2.getID() >0)
            {
-               return F2;
+               return;
            }
            else
            {
                db.opretOtherFirma(firmanavn);
-               Firma F3 = db.hentOtherFirma(firmanavn);
-               return F3;
            }
        }
-    return new Firma();
     }
+
+
+    public void tilfoejPerscomp(Person p, String firmanavn){
+        Firma f1 = db.hentOtherFirma(firmanavn);
+        p.setFirma(f1);
+        db.insertPersComp(p);
+
+    }
+
+
+    public Firma hentTransportFirma(String firmanavn) {
+        return db.hentTransportFirma(firmanavn);
+    }
+
+
 
     public ArrayList<Firma> hentTransportFirmaer()
     {
@@ -73,6 +85,20 @@ public class Usecase {
           }
       }
       return transportFirmaListen;
+    }
+
+
+    public Person tjekOmPersonFindesEllerOpret(Person p) {
+        Person p1 = db.hentPerson(p.getIdNR());
+        if (p1.getIdNR() >0)
+        {
+            return p1;
+        }
+        else {
+            db.opretPerson(p);
+            Person p2 = db.hentPerson(p.getIdNR());
+            return p2;
+        }
     }
 
 
