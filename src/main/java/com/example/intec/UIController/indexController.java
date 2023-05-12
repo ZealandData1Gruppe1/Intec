@@ -18,8 +18,8 @@ import java.util.DoubleSummaryStatistics;
 public class indexController {
 
     Usecase uc = new Usecase();
-    @GetMapping("/registrerChauffør")
-    public String registrerChauf(Model model)
+    @GetMapping("/registrer")
+    public String registrer(Model model)
     {
         Person person = new Person();
         ArrayList<Firma> firmaListe = uc.hentTransportFirmaer();
@@ -29,10 +29,10 @@ public class indexController {
         model.addAttribute("person", person);
         model.addAttribute("otherFirmanavn",otherFirmanavn);
 
-        return "registrerChauffør";
+        return "registrer";
     }
-    @PostMapping("/registrerChauffør")
-    public String registerChauffeur(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn) {
+    @PostMapping("/registrer")
+    public String registerPost(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn) {
 
 
         uc.RegistrerPerson(person,otherFirmanavn);

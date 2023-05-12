@@ -6,19 +6,33 @@
     <title>Register Chauffør</title>
 </head>
 <body>
-<div class="container">
-    <div class="item">
-        <img src="logo.jpg" style="width:10em; height:3em;" />
-    </div>
+<header class = "topbar">
+    <img src="logo.jpg"/>
+    <img src="flag.svg.png" id = "billede"/>
+</header>
+<div class = " tilbage">
+    <a href="http://localhost:8080/">Til forside</a>
 </div>
+
 <div class="formtext">
-<form action="http://localhost:8080/registrerChauffør" method="post" th:object="${person}">
+<form action="http://localhost:8080/registrer" method="post" th:object="${person}">
+<tr>
+    <center>
+    <td class = "overskrift">Indtast oplysninger</td>
+    </center>
+</tr>
+    <center>
+    <tr>
+        <td>Ved at indtaste dine oplysninger giver du samtykke til at dine data bliver opbevaret af intec</td>
+    </tr>
+    </center>
     <th: for="fname" >Fornavn</th:>
     <input type="text" th:field="*{fornavn}" name="fname" />
     <th: for="lname" >Efternavn</th:>
     <input type="text" th:field="*{efternavn}" name="lname" />
     <th: for="idNR" >Kørekort Nummer</th:>
     <input type="number" th:field="*{idNR}" name="idNR" />
+    <th: for="firma" >Firma</th:>
     <select th:field="*{firma}" name="firma">
         <option value="">Vælg Firma</option>
         <option th:each="firma : ${firmaliste}"
@@ -30,7 +44,9 @@
     </select>
     <th: for="otherFirmanavn" >Firma ikke på listen</th:>
     <input type="text" th:value="${otherFirmanavn}" name="otherFirmanavn"/>
+    <center>
     <input type="submit" value="Gem">
+    </center>
 </form>
 </div>
 </body>
