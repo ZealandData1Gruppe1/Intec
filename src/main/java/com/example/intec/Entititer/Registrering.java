@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class Registrering {
-    int id;
-    Person registreringPerson;
-    LocalDate tjekinTidspunkt;
-    LocalDate tjekudTidspunkt;
-    String lokation;
+    private int id;
+    private Person registreringPerson;
+    private LocalDate tjekinTidspunkt;
+    private LocalDate tjekudTidspunkt;
+    private String lokation;
 
     public Registrering()
     {

@@ -8,11 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
 
 @Controller
 public class indexController {
@@ -22,20 +19,16 @@ public class indexController {
     public String registrerChauf(Model model)
     {
         Person person = new Person();
-        ArrayList<Firma> firmaListe = uc.hentTransportFirmaer();
+        ArrayList<Firma> firmaListe = uc.hentAlleTransportFirma();
         String otherFirmanavn = " ";
-
         model.addAttribute("firmaliste", firmaListe);
         model.addAttribute("person", person);
         model.addAttribute("otherFirmanavn",otherFirmanavn);
-
         return "registrerChauffør";
     }
     @PostMapping("/registrerChauffør")
     public String registerChauffeur(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn) {
-
-
-        uc.RegistrerPerson(person,otherFirmanavn);
+        uc.registrerPerson(person,otherFirmanavn);
         return "redirect:/index";
     }
 }

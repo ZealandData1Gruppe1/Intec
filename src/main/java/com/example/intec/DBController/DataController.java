@@ -114,11 +114,11 @@ public class DataController {
                 throw new RuntimeException(e);
         }
     }
-    public Person hentPerson(int ID)
+    public Person hentPerson(int idNR)
     {
         Person person = new Person();
         try{
-            String sql = "SELECT * from person WHERE idnr ="+ID;
+            String sql = "SELECT * from person WHERE idnr ="+idNR;
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){

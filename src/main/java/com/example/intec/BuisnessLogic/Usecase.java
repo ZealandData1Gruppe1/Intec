@@ -4,11 +4,8 @@ import com.example.intec.DBController.DataController;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
-import org.springframework.http.server.DelegatingServerHttpResponse;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -22,7 +19,7 @@ public class Usecase {
         this.db = new DataController(location);
     }
 
-    public void RegistrerPerson(Person p, String othercompany)
+    public void registrerPerson(Person p, String othercompany)
     {
         Person person = new Person();
         Firma hentetFirma = new Firma();
@@ -82,7 +79,7 @@ public class Usecase {
         return db.hentTransportFirma(firmanavn);
     }
 
-    public ArrayList<Firma> hentTransportFirmaer()
+    public ArrayList<Firma> hentAlleTransportFirma()
     {
       ArrayList<Firma> transportFirmaListen=db.hentTransportFirmaListe();
       for(int i =0; i<transportFirmaListen.size();i++)

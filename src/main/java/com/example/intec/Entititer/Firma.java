@@ -7,7 +7,7 @@
             private int ID;
             private String firmanavn;
 
-            ArrayList<Person> ansatte = new ArrayList<>();
+            private ArrayList<Person> ansatte = new ArrayList<>();
 
             public Firma() {
             }
