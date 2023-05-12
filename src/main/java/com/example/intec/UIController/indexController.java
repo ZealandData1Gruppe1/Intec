@@ -28,6 +28,7 @@ public class indexController {
     }
     @PostMapping("/registrerChauffør")
     public String registerChauffeur(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn) {
+
         uc.registrerPerson(person,otherFirmanavn);
         return "redirect:/index";
     }

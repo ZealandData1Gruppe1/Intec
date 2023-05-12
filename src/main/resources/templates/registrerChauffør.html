@@ -19,10 +19,10 @@
     <input type="text" th:field="*{efternavn}" name="lname" />
     <th: for="idNR" >Kørekort Nummer</th:>
     <input type="number" th:field="*{idNR}" name="idNR" />
-    <select th:field="*{firma}" name="firma">
+    <select th:field="*{firma.firmanavn}" name="firma">
         <option value="">Vælg Firma</option>
         <option th:each="firma : ${firmaliste}"
-                th:value="${firma}"
+                th:value="${firma.firmanavn}"
                 th:text="${firma.firmanavn}">
 
         </option>

@@ -92,7 +92,7 @@ public class DataController {
             throw new RuntimeException(e);
         }
     }
-    public void insertPersComp(Person p)
+    public void insertPerComp(Person p)
     {
         try{
             String sql = "insert into percomp (pid, cid) VALUES("+p.getIdNR()+" , "+p.getFirma().getID()+")";

@@ -22,31 +22,22 @@ public class Usecase {
     public void registrerPerson(Person p, String othercompany)
     {
         Person person = new Person();
-        Firma hentetFirma = new Firma();
         if(p.getFirma().getFirmanavn().equalsIgnoreCase("other"))
         {
             if(findesOtherCompany(othercompany) == false)
             {
                 db.opretOtherFirma(othercompany);
-                hentetFirma = db.hentOtherFirma(othercompany);
-            }
-            else
-            {
-                hentetFirma = db.hentOtherFirma(othercompany);
+
             }
             if (findesPerson(p.getIdNR()) == false)
             {
                 Firma other = db.hentTransportFirma("OTHER");
                 p.setFirma(other);
                 db.opretPerson(p);
-                person = db.hentPerson(p.getIdNR());
-            }
-            else
-            {
-                person = db.hentPerson(p.getIdNR());
+                person=db.hentPerson(p.getIdNR());
             }
             person.setFirma(db.hentOtherFirma(othercompany));
-            db.insertPersComp(person);
+            db.insertPerComp(person);
         }
         else {
             Firma firma = db.hentTransportFirma(p.getFirma().getFirmanavn());
@@ -58,7 +49,7 @@ public class Usecase {
                 person.setFirma(firma);
             }
             else {
-                person = db.hentPerson(p.getIdNR());
+                person = p;
                 person.setFirma(firma);
             }
         }
@@ -71,7 +62,7 @@ public class Usecase {
     public void tilfoejPerscomp(Person p, String firmanavn){
         Firma f1 = db.hentOtherFirma(firmanavn);
         p.setFirma(f1);
-        db.insertPersComp(p);
+        db.insertPerComp(p);
 
     }
 
