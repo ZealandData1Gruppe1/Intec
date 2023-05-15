@@ -5,7 +5,9 @@ import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DataController {
     private Connection connection;
@@ -36,7 +38,7 @@ public class DataController {
     public void insertRegistration(Registrering r)
     {
         try {
-            String sql= "insert into registration (checkin, pid, locationid) VALUES ('"+r.getTjekinTidspunkt()+"' , "+r.getRegistreringPerson().getIdNR()+" , "+locationID+")";
+            String sql= "insert into registration (checkin, pid, locationid) VALUES ('"+timeFormatter(r.getTjekinTidspunkt()) +"' , "+r.getRegistreringPerson().getIdNR()+" , "+locationID+")";
         Statement stmt = connection.createStatement();
         stmt.execute(sql);
         stmt.close();
@@ -151,5 +153,11 @@ public class DataController {
             throw new RuntimeException(e);
         }
         return transportFirmaListen;
+    }
+
+    private String timeFormatter (Date d){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String tid = sdf.format(d);
+        return tid;
     }
 }

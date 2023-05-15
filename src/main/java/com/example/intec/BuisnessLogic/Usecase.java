@@ -5,7 +5,7 @@ import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.TimeZone;
@@ -47,7 +47,8 @@ public class Usecase {
             }
         }
 
-        Registrering r = new Registrering(person, LocalDate.now(), location);
+        Date nu = new Date();
+        Registrering r = new Registrering(person, nu, location);
         db.insertRegistration(r);
 
     }
