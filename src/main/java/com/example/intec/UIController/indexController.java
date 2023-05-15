@@ -15,30 +15,42 @@ import java.util.ArrayList;
 public class indexController {
 
     Usecase uc = new Usecase();
+
     @GetMapping("/registrer")
-    public String registrer(Model model)
-    {
+    public String registrer(Model model) {
         Person person = new Person();
         ArrayList<Firma> firmaListe = uc.hentAlleTransportFirma();
         String otherFirmanavn = " ";
         model.addAttribute("firmaliste", firmaListe);
         model.addAttribute("person", person);
-        model.addAttribute("otherFirmanavn",otherFirmanavn);
+        model.addAttribute("otherFirmanavn", otherFirmanavn);
 
         return "registrer";
 
     }
-    @PostMapping("/registrer")
-    public String registerPost(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn) {
-
-        uc.registrerPerson(person,otherFirmanavn);
-        return "redirect:/";
-    }
-
 
     @GetMapping("/")
     public String visForside() {
         uc.setLocation();
         return "index";
     }
+
+    @PostMapping("/registrer")
+    public String registerPost(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn, Model model) {
+        if (uc.checkNavnForIkkeBogstaver(person.getFornavn()) == true) {
+            if (uc.checkNavnForIkkeBogstaver(person.getEfternavn()) == true) {
+                uc.registrerPerson(person, otherFirmanavn);
+                return "redirect:/";
+            }
+        }
+            else{
+                String forkerteOplysninger = "Forkerte Oplysninger: Indtast venligst dine oplysninger igen";
+                model.addAttribute("opretError", forkerteOplysninger);
+                return "registrer";
+            }
+
+        uc.registrerPerson(person,otherFirmanavn);
+        return "redirect:/";
+    }
+
 }
