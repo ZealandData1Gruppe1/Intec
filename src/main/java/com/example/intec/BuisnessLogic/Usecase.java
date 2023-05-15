@@ -109,5 +109,20 @@ public class Usecase {
         else return false;
     }
 
+    public boolean checkNavnForIkkeBogstaver(String navn){
+        if (navn == null) {
+            return false;
+        }
+        for (int i = 0; i < navn.length(); i++) {
+            System.out.println("hej vi er nået her til");
+            if ((Character.isLetter(navn.charAt(i)) == false)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
 
 }
