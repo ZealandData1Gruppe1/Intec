@@ -11,10 +11,10 @@ public class DataController {
     private Connection connection;
     private Statement stmt;
     int locationID;
-    public DataController(String Location) {
+    public DataController(String location) {
         connection = null;
         stmt = null;
-        if(Location.equals("Haslev"))
+        if(location.equals("Haslev") || location.equals(""))
         {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/inteceu", "root", "Password1234");
@@ -23,7 +23,7 @@ public class DataController {
             throwables.printStackTrace();
         }
         }
-        if(Location.equals("Boston"))
+        if(location.equals("Boston"))
         {
             try {
                 connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/intecus", "root", "Password1234");

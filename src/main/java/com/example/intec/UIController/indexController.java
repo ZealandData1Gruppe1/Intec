@@ -25,7 +25,6 @@ public class indexController {
         model.addAttribute("person", person);
         model.addAttribute("otherFirmanavn",otherFirmanavn);
 
-
         return "registrer";
 
     }
@@ -33,6 +32,13 @@ public class indexController {
     public String registerPost(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn) {
 
         uc.registrerPerson(person,otherFirmanavn);
-        return "redirect:/index";
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/")
+    public String visForside() {
+        uc.setLocation();
+        return "index";
     }
 }

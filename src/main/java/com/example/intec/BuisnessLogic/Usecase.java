@@ -8,6 +8,7 @@ import com.example.intec.Entititer.Registrering;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.TimeZone;
 
 public class Usecase {
 
@@ -15,40 +16,32 @@ public class Usecase {
     DataController db;
 
     public Usecase() {
-        this.location = "Haslev";
-        this.db = new DataController(location);
+        this.db = new DataController(setLocation());
     }
 
-    public void registrerPerson(Person p, String othercompany)
-    {
+    public void registrerPerson(Person p, String othercompany) {
         Person person = new Person();
-        if(p.getFirma().getFirmanavn().equalsIgnoreCase("other"))
-        {
-            if(findesOtherCompany(othercompany) == false)
-            {
+        if (p.getFirma().getFirmanavn().equalsIgnoreCase("other")) {
+            if (findesOtherCompany(othercompany) == false) {
                 db.opretOtherFirma(othercompany);
 
             }
-            if (findesPerson(p.getIdNR()) == false)
-            {
+            if (findesPerson(p.getIdNR()) == false) {
                 Firma other = db.hentTransportFirma("OTHER");
                 p.setFirma(other);
                 db.opretPerson(p);
-                person=db.hentPerson(p.getIdNR());
+                person = db.hentPerson(p.getIdNR());
             }
             person.setFirma(db.hentOtherFirma(othercompany));
             db.insertPerComp(person);
-        }
-        else {
+        } else {
             Firma firma = db.hentTransportFirma(p.getFirma().getFirmanavn());
             p.setFirma(firma);
-            if (findesPerson(p.getIdNR()) == false)
-            {
+            if (findesPerson(p.getIdNR()) == false) {
                 db.opretPerson(p);
                 person = db.hentPerson(p.getIdNR());
                 person.setFirma(firma);
-            }
-            else {
+            } else {
                 person = p;
                 person.setFirma(firma);
             }
@@ -59,7 +52,7 @@ public class Usecase {
 
     }
 
-    public void tilfoejPerscomp(Person p, String firmanavn){
+    public void tilfoejPerscomp(Person p, String firmanavn) {
         Firma f1 = db.hentOtherFirma(firmanavn);
         p.setFirma(f1);
         db.insertPerComp(p);
@@ -70,44 +63,49 @@ public class Usecase {
         return db.hentTransportFirma(firmanavn);
     }
 
-    public ArrayList<Firma> hentAlleTransportFirma()
-    {
-      ArrayList<Firma> transportFirmaListen=db.hentTransportFirmaListe();
-      for(int i =0; i<transportFirmaListen.size();i++)
-      {
-          if(transportFirmaListen.get(i).getFirmanavn().equalsIgnoreCase("other"))
-          {
-              Collections.swap(transportFirmaListen,i,transportFirmaListen.size()-1);
-          }
-      }
-      return transportFirmaListen;
+    public ArrayList<Firma> hentAlleTransportFirma() {
+        ArrayList<Firma> transportFirmaListen = db.hentTransportFirmaListe();
+        for (int i = 0; i < transportFirmaListen.size(); i++) {
+            if (transportFirmaListen.get(i).getFirmanavn().equalsIgnoreCase("other")) {
+                Collections.swap(transportFirmaListen, i, transportFirmaListen.size() - 1);
+            }
+        }
+        return transportFirmaListen;
     }
 
-    public boolean findesPerson(int idnr)
-    {;
+    public boolean findesPerson(int idnr) {
+        ;
         Person p1 = db.hentPerson(idnr);
-        if(p1.getIdNR() > 0)
-        {
+        if (p1.getIdNR() > 0) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
-    public boolean findesTransportCompany(String firmanavn)
-    {
-        if (db.hentTransportFirma(firmanavn).getID() >0)
-        {
+
+    public boolean findesTransportCompany(String firmanavn) {
+        if (db.hentTransportFirma(firmanavn).getID() > 0) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
-    public boolean findesOtherCompany(String firmanavn)
-    {
-        if (db.hentOtherFirma(firmanavn).getID() > 0)
-        {
+
+    public boolean findesOtherCompany(String firmanavn) {
+        if (db.hentOtherFirma(firmanavn).getID() > 0) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
 
+    public String setLocation() {
+        TimeZone t = TimeZone.getDefault();
+        String defaultLocation = t.getID();
+        String continentName = defaultLocation.substring(0, Math.min(defaultLocation.length(), 6));
+
+        if (continentName.equals("Europe")) {
+            location = "Haslev";
+            return location;
+        } else {
+            location = "Boston";
+            return location;}
+    }
 }
+
+
