@@ -49,8 +49,10 @@ public class indexController {
                 return "registrer";
             }
 
-        uc.registrerPerson(person,otherFirmanavn);
-        return "redirect:/";
+
+        String forkerteOplysninger = "Forkerte Oplysninger: Indtast venligst dine oplysninger igen";
+        model.addAttribute("opretError", forkerteOplysninger);
+        return "registrer";
     }
 
 }
