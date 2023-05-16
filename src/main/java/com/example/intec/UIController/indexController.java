@@ -30,8 +30,10 @@ public class indexController {
     }
 
     @GetMapping("/")
-    public String visForside() {
+    public String visForside(Model model) {
         uc.setLocation();
+        Boolean language = uc.shouldDisplayEnglish();
+        model.addAttribute("language",language);
         return "index";
     }
 

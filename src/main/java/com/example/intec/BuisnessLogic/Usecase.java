@@ -121,6 +121,20 @@ public class Usecase {
             location = "Boston";
             return location;}
     }
+
+    public Boolean shouldDisplayEnglish()
+    {
+        if( location.equalsIgnoreCase("Haslev"))
+        {
+            return false;
+        }
+        if (location.equalsIgnoreCase("Boston"))
+        {
+            return true;
+        }
+        return true;
+    }
+
 }
 
 

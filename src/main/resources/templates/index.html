@@ -6,26 +6,40 @@
     <title>Intec forside</title>
 </head>
 
-
 <body>
-<div class="container">
+<header>
     <div class="item">
-        <img src="logo.jpg" style="width:10em; height:3em;" />
-    </div>
-
-    <div class="item">
-        <center>
-            <a href="http://localhost:8080/registrer" class = "indexknap">Registrer besøg</a>
-
-        </center>
+    <img src="logo.jpg" style="width:10em; height:3em;" />
     </div>
 </div>
-<center>
+</header>
+<div class="container">
+
+        <img src ="usa.jpg">
+        <input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
+        <img src ="dk.jpeg">
+
+    <div class = "content contentDanish">
+        <div class = "center"->
+            <a href="http://localhost:8080/registrer" class = "indexknap">Registrer besøg</a>
+        </div>
+    </div>
+    <div class="content contentEnglish">
+        <div class = "center">
+        <a href="http://localhost:8080/registrer" class = "indexknap">Register visit</a>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class ="center ">
 <video  autoplay muted loop src="forsidevideo.mp4" width="1200">
     <source src="forsidevideo.mp4">
     <source src="forsidevideo.WebM">
 </video>
-</center>
+</div>
 
 </body>
 </html>
