@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="ui_styles.css">
+    <meta charset="UTF-8">
+    <title>Log ind</title>
+</head>
+<body>
+<header class = "topbar">
+  <img src="logo.jpg"/>
+</header>
+<div class = " tilbage">
+  <a href="http://localhost:8080/">Til forside</a>
+</div>
+
+<div class="formtext">
+    <form action="http://localhost:8080/adminLogin" method="post" th:object="${admin}">
+        <tr>
+            <center>
+                <td class = "overskrift">Indtast login oplysninger</td>
+            </center>
+        </tr>
+
+        <th: for="brugernavn" >Brugernavn</th:>
+        <input type="text" th:field="*{brugernavn}" name="brugernavn" />
+        <th: for="kode" >Kode</th:>
+        <input type="text" th:field="*{kode}" name="kode" />
+
+        <center>
+            <input type="submit" value="Login">
+        </center>
+
+    </form>
+
+</div>
+
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.example.intec.UIController;
 
 import com.example.intec.BuisnessLogic.Usecase;
+import com.example.intec.Entititer.Admin;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import org.springframework.stereotype.Controller;
@@ -53,6 +54,20 @@ public class indexController {
         String forkerteOplysninger = "Forkerte Oplysninger: Indtast venligst dine oplysninger igen";
         model.addAttribute("opretError", forkerteOplysninger);
         return "registrer";
+    }
+
+
+    @GetMapping("/adminLogin")
+    public String visAdminLogin(Model model) {
+        Admin admin = new Admin();
+        model.addAttribute("admin",admin);
+        return "adminLogin";
+    }
+
+
+    @PostMapping("/adminLogin")
+    public String loginPost(@ModelAttribute("admin") Admin admin) {
+        return "index";
     }
 
 }
