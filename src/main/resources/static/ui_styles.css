@@ -112,5 +112,12 @@ margin: 1px;
 }
 
 .topbar{
-margin-bottom: 1px;
+margin-bottom: 50px;
+}
+
+.bodyAdmin{
+	display: flex;
+	flex-direction: column;
+
+
 }
