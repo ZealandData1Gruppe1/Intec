@@ -1,6 +1,7 @@
 package com.example.intec.BuisnessLogic;
 
 import com.example.intec.DBController.DataController;
+import com.example.intec.Entititer.Admin;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
@@ -120,6 +121,15 @@ public class Usecase {
         } else {
             location = "Boston";
             return location;}
+    }
+
+    public boolean adminLogin (Admin a){
+        Admin dataAdmin = db.hentAdmin(a.getBrugernavn());
+        if (a.getBrugernavn().equals(dataAdmin.getBrugernavn()) && a.getKode().equals(dataAdmin.getKode())){
+            return true;
+        }
+        else
+            return false;
     }
 }
 

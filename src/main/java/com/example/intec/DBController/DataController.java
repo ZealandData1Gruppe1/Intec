@@ -1,5 +1,6 @@
 package com.example.intec.DBController;
 
+import com.example.intec.Entititer.Admin;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
@@ -115,6 +116,7 @@ public class DataController {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
         }
+
     }
     public Person hentPerson(int idNR)
     {
@@ -159,5 +161,22 @@ public class DataController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String tid = sdf.format(d);
         return tid;
+    }
+
+    public Admin hentAdmin(String brugernavn){
+        Admin admin = new Admin();
+        try{
+            String sql = "Select * from admin where brugernavn = '"+brugernavn+"'";
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                admin.setBrugernavn(rs.getString("brugernavn"));
+                admin.setKode(rs.getString("kode"));
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return admin;
     }
 }
