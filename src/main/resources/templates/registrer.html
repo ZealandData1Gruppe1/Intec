@@ -17,10 +17,17 @@
 
     <form action="http://localhost:8080/registrer" method="post" th:object="${person}">
 
-        <a href="http://localhost:8080/">Til forside</a>
+
         <img src ="usa.jpg">
         <input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
         <img src ="dk.jpeg" >
+
+        <div class = "content contentDanish">
+        <a href="http://localhost:8080/">Til forside</a>
+        </div>
+        <div class = "content contentEnglish">
+            <a href="http://localhost:8080/">To Frontpage</a>
+        </div>
         <br>
 
         <div class = "content contentDanish">

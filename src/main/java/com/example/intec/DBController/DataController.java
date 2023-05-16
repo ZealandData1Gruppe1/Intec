@@ -65,23 +65,7 @@ public class DataController {
     }
         return firma;
     }
-    public Firma hentOtherFirma(String firmanavn)
-    {
-        Firma firma = new Firma();
-        try{
-            String sql = "Select * from otherCompany where companyname = '"+firmanavn+"'";
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
-                firma.setFirmanavn(rs.getString("companyname"));
-                firma.setID(rs.getInt("id"));
-            }
-            stmt.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return firma;
-    }
+
     public void opretFirma(String firmanavn)
     {
         Firma firma = new Firma();

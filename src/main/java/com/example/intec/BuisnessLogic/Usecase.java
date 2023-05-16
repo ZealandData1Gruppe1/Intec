@@ -76,6 +76,12 @@ public class Usecase {
         }
         return true;
     }
+    public boolean checkID(int id){
+        if (id == 0) {
+            return false;
+        }
+        return true;
+    }
 
     public String setLocation() {
         TimeZone t = TimeZone.getDefault();

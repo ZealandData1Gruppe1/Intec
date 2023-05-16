@@ -55,8 +55,11 @@ public class indexController {
             {
                 if (uc.checkNavnForIkkeBogstaver(person.getEfternavn()) == true)
                 {
-                    uc.registrerPerson(person, valgtFirma, otherFirmanavn);
-                    return "redirect:/";
+                    if(uc.checkID(person.getIdNR()) == true)
+                    {
+                        uc.registrerPerson(person, valgtFirma, otherFirmanavn);
+                        return "redirect:/";
+                    }
                 }
             }
             else
