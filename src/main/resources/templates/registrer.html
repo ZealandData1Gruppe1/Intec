@@ -4,50 +4,114 @@
     <link rel="stylesheet" href="ui_styles.css">
     <meta charset="UTF-8">
     <title>Register</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header class = "topbar">
     <img src="logo.jpg"/>
-    <img src="flag.svg.png" id = "billede"/>
 </header>
-<div class = " tilbage">
-    <a href="http://localhost:8080/">Til forside</a>
-</div>
 
-<div class="formtext">
-<form action="http://localhost:8080/registrer" method="post" th:object="${person}">
-<tr>
-    <center>
-    <td class = "overskrift">Indtast oplysninger</td>
-    </center>
-</tr>
-    <center>
-    <tr>
-        <td>Ved at indtaste dine oplysninger giver du samtykke til at dine data bliver opbevaret af intec</td>
-    </tr>
-    </center>
-    <th: for="fname" >Fornavn</th:>
-    <input type="text" th:field="*{fornavn}" name="fname" />
-    <th: for="lname" >Efternavn</th:>
-    <input type="text" th:field="*{efternavn}" name="lname" />
-    <th: for="idNR" >Kørekort Nummer</th:>
-    <input type="number" th:field="*{idNR}" name="idNR" />
-    <th: for="firma" >Firma</th:>
-    <select th:field="*{firma.firmanavn}" name="firma">
-        <option value="">Vælg Firma</option>
+<div class ="container">
+    <div class="formtext">
+
+
+    <form action="http://localhost:8080/registrer" method="post" th:object="${person}">
+
+        <a href="http://localhost:8080/">Til forside</a>
+        <img src ="usa.jpg">
+        <input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
+        <img src ="dk.jpeg" >
+        <br>
+
+        <div class = "content contentDanish">
+             <div class ="center">
+                 <text class = "overskrift"> Indtast dine oplysninger </text>
+            </div>
+        </div>
+        <div class = "content contentEnglish">
+            <div class ="center">
+                <text class = "overskrift">Enter your information </text>
+            </div>
+        </div>
+        <input type="checkbox" id="GDPRbox" th:attr="data-target='#myButton'"/>
+        <div class = "content contentDanish">
+
+        <text style="float:left"> Jeg giver samtykke til at mine data bliver opbevaret af intec af sikkerhedsmæssige grunde (Nødvendigt) </text>
+        </div>
+        <div class = "content contentEnglish">
+                <text style="float:left">I consent to my data being stored by Intec for security reasons (Required) </text>
+        </div>
+        <br>
+        <div class = "content contentDanish">
+        <th: for="fname" >Fornavn</th:>
+        </div>
+        <div class = "content contentEnglish">
+            <th: for="fname" >First name</th:>
+        </div>
+        <input type="text" th:field="*{fornavn}" name="fname" />
+        <div class = "content contentDanish">
+            <th: for="lname" >Efternavn</th:>
+        </div>
+        <div class = "content contentEnglish">
+            <th: for="lname" >Last name</th:>
+        </div>
+        <input type="text" th:field="*{efternavn}" name="lname" />
+        <div class = "content contentDanish">
+            <th: for="idNR" >Kørekort eller pas nummer</th:>
+        </div>
+        <div class = "content contentEnglish">
+            <th: for="idNR" >Drivers license or passport ID</th:>
+        </div>
+        <input type="number" th:field="*{idNR}" name="idNR" />
+        <div class = "content contentDanish">
+            <th: for="valgtfirma" >Firma</th:>
+        </div>
+        <div class = "content contentEnglish">
+            <th: for="valgtfirma" >Company</th:>
+        </div>
+
+    <select name="valgtfirma">
+            <option value=""></option>
         <option th:each="firma : ${firmaliste}"
                 th:value="${firma.firmanavn}"
                 th:text="${firma.firmanavn}">
         </option>
 
     </select>
-    <th: for="otherFirmanavn" >Firma ikke på listen</th:>
+        <div class = "content contentDanish">
+            <th: for="otherFirmanavn" >Firma ikke på listen</th:>
+        </div>
+        <div class = "content contentEnglish">
+            <th: for="otherFirmanavn" >Company not listed</th:>
+        </div>
+
+
     <input type="text" th:value="${otherFirmanavn}" name="otherFirmanavn"/>
-    <center>
-    <input type="submit" value="Gem">
-    </center>
-    <tr> <td th:if="${opretError}" class="error">Forkerte Oplysninger: Indtast venligst dine oplysninger igen </td> </tr>
-</form>
+    <div class ="center">
+        <button id="myButton" type="submit" disabled="disabled">Check in</button>
+
+    </div>
+        <div class = "content contentDanish">
+    <div class ="center">
+     <td th:if="${opretError}" class="error">Fejl i indtastning, prøv igen. </td>
+    </div>
+        </div>
+        <div class = "content contentEnglish">
+            <div class ="center">
+                <td th:if="${opretError}" class="error"> Error in input, please check the form and try again</td>
+            </div>
+        </div>
+
+    </form>
+        <script th:inline="javascript">
+            $(document).ready(function() {
+                $('#GDPRbox').click(function() {
+                    var isChecked = $(this).prop('checked');
+                    $('#myButton').prop('disabled', !isChecked);
+                });
+            });
+        </script>
+</div>
 </div>
 </body>
 </html>

@@ -17,14 +17,18 @@ public class indexController {
 
     Usecase uc = new Usecase();
 
+    ArrayList<Firma> firmaListen;
+
     @GetMapping("/registrer")
     public String registrer(Model model) {
         Person person = new Person();
-        ArrayList<Firma> firmaListe = uc.hentAlleTransportFirma();
+        firmaListen = uc.hentAlleTransportFirma();
+        Firma tom = new Firma();
         String otherFirmanavn = " ";
-        model.addAttribute("firmaliste", firmaListe);
+        model.addAttribute("firmaliste", firmaListen);
         model.addAttribute("person", person);
         model.addAttribute("otherFirmanavn", otherFirmanavn);
+        model.addAttribute("valgtfirma", tom);
 
         return "registrer";
 
@@ -37,25 +41,33 @@ public class indexController {
         model.addAttribute("language",language);
         return "index";
     }
-
     @PostMapping("/registrer")
-    public String registerPost(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn, Model model) {
-        if (uc.checkNavnForIkkeBogstaver(person.getFornavn()) == true) {
-            if (uc.checkNavnForIkkeBogstaver(person.getEfternavn()) == true) {
-                uc.registrerPerson(person, otherFirmanavn);
-                return "redirect:/";
+    public String registerPost(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn, Model model, @ModelAttribute("valgtfirma") Firma firma) {
+        Firma valgtFirma = new Firma();
+        for (int i = 0; i < firmaListen.size(); i++)
+        {
+            if (firmaListen.get(i).getFirmanavn().equalsIgnoreCase(firma.getFirmanavn()))
+            {
+                valgtFirma = firmaListen.get(i);
             }
         }
-            else{
+            if (uc.checkNavnForIkkeBogstaver(person.getFornavn()) == true)
+            {
+                if (uc.checkNavnForIkkeBogstaver(person.getEfternavn()) == true)
+                {
+                    uc.registrerPerson(person, valgtFirma, otherFirmanavn);
+                    return "redirect:/";
+                }
+            }
+            else
+            {
                 String forkerteOplysninger = "Forkerte Oplysninger: Indtast venligst dine oplysninger igen";
                 model.addAttribute("opretError", forkerteOplysninger);
                 return "registrer";
             }
-
-
-        String forkerteOplysninger = "Forkerte Oplysninger: Indtast venligst dine oplysninger igen";
-        model.addAttribute("opretError", forkerteOplysninger);
-        return "registrer";
+            String forkerteOplysninger = "Forkerte Oplysninger: Indtast venligst dine oplysninger igen";
+            model.addAttribute("opretError", forkerteOplysninger);
+            return "registrer";
     }
 
 

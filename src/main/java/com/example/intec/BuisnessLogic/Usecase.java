@@ -20,59 +20,35 @@ public class Usecase {
         this.db = new DataController(setLocation());
     }
 
-    public void registrerPerson(Person p, String othercompany) {
+    public void registrerPerson(Person p, Firma f, String otherfirma) {
         Person person = new Person();
-        if (p.getFirma().getFirmanavn().equalsIgnoreCase("other")) {
-            if (findesOtherCompany(othercompany) == false) {
-                db.opretOtherFirma(othercompany);
-
-            }
-            if (findesPerson(p.getIdNR()) == false) {
-                Firma other = db.hentTransportFirma("OTHER");
-                p.setFirma(other);
-                db.opretPerson(p);
-                person = db.hentPerson(p.getIdNR());
-            }
-            person.setFirma(db.hentOtherFirma(othercompany));
-            db.insertPerComp(person);
-        } else {
-            Firma firma = db.hentTransportFirma(p.getFirma().getFirmanavn());
-            p.setFirma(firma);
-            if (findesPerson(p.getIdNR()) == false) {
-                db.opretPerson(p);
-                person = db.hentPerson(p.getIdNR());
-                person.setFirma(firma);
+        Firma firma = new Firma();
+        if (f.getFirmanavn() == null) {
+            if (findesCompany(otherfirma) == false) {
+                db.opretFirma(otherfirma);
+                firma = db.hentFirma(otherfirma);
             } else {
-                person = p;
-                person.setFirma(firma);
+                firma = db.hentFirma(otherfirma);
             }
         }
+        else
+        {
+            firma = f;
+        }
+            if (findesPerson(p.getIdNR()) == false) {
+                db.opretPerson(p);
+                person = db.hentPerson(p.getIdNR());
+            }
 
+
+            person = p;
         Date nu = new Date();
-        Registrering r = new Registrering(person, nu, location);
+        Registrering r = new Registrering(person,firma, nu, location);
         db.insertRegistration(r);
 
     }
-
-    public void tilfoejPerscomp(Person p, String firmanavn) {
-        Firma f1 = db.hentOtherFirma(firmanavn);
-        p.setFirma(f1);
-        db.insertPerComp(p);
-
-    }
-
-    public Firma hentTransportFirma(String firmanavn) {
-        return db.hentTransportFirma(firmanavn);
-    }
-
     public ArrayList<Firma> hentAlleTransportFirma() {
-        ArrayList<Firma> transportFirmaListen = db.hentTransportFirmaListe();
-        for (int i = 0; i < transportFirmaListen.size(); i++) {
-            if (transportFirmaListen.get(i).getFirmanavn().equalsIgnoreCase("other")) {
-                Collections.swap(transportFirmaListen, i, transportFirmaListen.size() - 1);
-            }
-        }
-        return transportFirmaListen;
+        return db.hentTransportFirmaListe();
     }
 
     public boolean findesPerson(int idnr) {
@@ -83,14 +59,8 @@ public class Usecase {
         } else return false;
     }
 
-    public boolean findesTransportCompany(String firmanavn) {
-        if (db.hentTransportFirma(firmanavn).getID() > 0) {
-            return true;
-        } else return false;
-    }
-
-    public boolean findesOtherCompany(String firmanavn) {
-        if (db.hentOtherFirma(firmanavn).getID() > 0) {
+    public boolean findesCompany(String firmanavn) {
+        if (db.hentFirma(firmanavn).getID() > 0) {
             return true;
         } else return false;
     }
@@ -106,9 +76,6 @@ public class Usecase {
         }
         return true;
     }
-
-
-
 
     public String setLocation() {
         TimeZone t = TimeZone.getDefault();
@@ -142,7 +109,6 @@ public class Usecase {
         }
         return true;
     }
-
 }
 
 

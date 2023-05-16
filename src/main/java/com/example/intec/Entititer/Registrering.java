@@ -10,15 +10,19 @@ public class Registrering {
     private Date tjekudTidspunkt;
     private String lokation;
 
+    private Firma firma;
+
     public Registrering()
     {
 
     }
-    public Registrering(Person registreringPerson, Date tjekinTidspunkt, String lokation)
+    public Registrering(Person registreringPerson,Firma firma, Date tjekinTidspunkt, String lokation)
     {
         this.registreringPerson = registreringPerson;
+        this.firma = firma;
         this.tjekinTidspunkt  = tjekinTidspunkt;
         this.lokation = lokation;
+
     }
 
     public Person getRegistreringPerson() {
@@ -59,5 +63,13 @@ public class Registrering {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Firma getFirma() {
+        return firma;
+    }
+
+    public void setFirma(Firma firma) {
+        this.firma = firma;
     }
 }

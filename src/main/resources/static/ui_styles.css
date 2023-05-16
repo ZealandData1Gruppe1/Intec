@@ -98,10 +98,6 @@ float: right;
 border: 1px solid black;
 }
 
-.tilbage{
-margin: 1px;
-}
-
 .topbar{
 margin-bottom: 50px;
 }
@@ -169,4 +165,35 @@ margin-bottom: 50px;
 .center{
 	display: flex;
 	justify-content: center;
+}
+#myButton{
+	width: 50%;
+	background: linear-gradient(grey,#00008B);
+	color: #fff;
+	padding: 10px 200px 10px 200px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 18px;
+	font-family: sans-serif;
+	letter-spacing: 2px;
+	text-decoration: none;
+}
+#GDPRbox
+{
+	margin-top:15px;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #eee;
+	float:left;
+}
+#GDPRbox input:checked ~ .checkmark {
+	background-color: #2196F3;
+}
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
 }

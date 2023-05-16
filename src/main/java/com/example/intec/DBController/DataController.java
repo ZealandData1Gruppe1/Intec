@@ -39,7 +39,7 @@ public class DataController {
     public void insertRegistration(Registrering r)
     {
         try {
-            String sql= "insert into registration (checkin, pid, locationid) VALUES ('"+timeFormatter(r.getTjekinTidspunkt()) +"' , "+r.getRegistreringPerson().getIdNR()+" , "+locationID+")";
+            String sql= "insert into registration (checkin, pid, locationid, cid) VALUES ('"+timeFormatter(r.getTjekinTidspunkt()) +"' , "+r.getRegistreringPerson().getIdNR()+" , "+locationID+" , "+r.getFirma().getID()+")";
         Statement stmt = connection.createStatement();
         stmt.execute(sql);
         stmt.close();
@@ -48,11 +48,11 @@ public class DataController {
     }
 
     }
-    public Firma hentTransportFirma(String firmanavn)
+    public Firma hentFirma(String firmanavn)
     {
         Firma firma = new Firma();
             try{
-                String sql = "Select * from transportcompany WHERE companyname ='"+firmanavn+"'";
+                String sql = "Select * from company WHERE companyname ='"+firmanavn+"'";
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
                 while(rs.next()){
@@ -82,23 +82,11 @@ public class DataController {
         }
         return firma;
     }
-    public void opretOtherFirma(String firmanavn)
+    public void opretFirma(String firmanavn)
     {
         Firma firma = new Firma();
-
         try{
-            String sql = "INSERT INTO otherCompany(companyname) VALUES ('"+firmanavn+"')";
-            Statement stmt = connection.createStatement();
-            stmt.execute(sql);
-            stmt.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void insertPerComp(Person p)
-    {
-        try{
-            String sql = "insert into percomp (pid, cid) VALUES("+p.getIdNR()+" , "+p.getFirma().getID()+")";
+            String sql = "INSERT INTO company(companyname) VALUES ('"+firmanavn+"')";
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
             stmt.close();
@@ -108,8 +96,9 @@ public class DataController {
     }
     public void opretPerson(Person p)
     {
+        Date d = new Date();
         try{
-            String sql = "insert into person (idnr, fname, lname, companyID) VALUES ("+p.getIdNR()+" , '"+p.getFornavn()+"' , '"+p.getEfternavn()+"', "+p.getFirma().getID()+")";
+            String sql = "insert into person (idnr, fname, lname, timestamp) VALUES ("+p.getIdNR()+" , '"+p.getFornavn()+"' , '"+p.getEfternavn()+"' , '"+timeFormatter(d)+"')";
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
             stmt.close();
@@ -134,6 +123,16 @@ public class DataController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        Date d = new Date();
+        try{
+            String sql = "Update person set timestamp ='"+timeFormatter(d)+"' WHERE idnr ="+idNR;
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         return person;
     }
 
@@ -141,7 +140,7 @@ public class DataController {
     {
         ArrayList<Firma> transportFirmaListen = new ArrayList<>();
         try{
-            String sql = "Select * from transportcompany";
+            String sql = "Select * from company where onlist = 1";
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
