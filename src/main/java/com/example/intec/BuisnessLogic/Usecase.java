@@ -122,7 +122,6 @@ public class Usecase {
             location = "Boston";
             return location;}
     }
-
     public boolean adminLogin (Admin a){
         Admin dataAdmin = db.hentAdmin(a.getBrugernavn());
         if (a.getBrugernavn().equals(dataAdmin.getBrugernavn()) && a.getKode().equals(dataAdmin.getKode())){
@@ -131,6 +130,19 @@ public class Usecase {
         else
             return false;
     }
+    public Boolean shouldDisplayEnglish()
+    {
+        if( location.equalsIgnoreCase("Haslev"))
+        {
+            return false;
+        }
+        if (location.equalsIgnoreCase("Boston"))
+        {
+            return true;
+        }
+        return true;
+    }
+
 }
 
 

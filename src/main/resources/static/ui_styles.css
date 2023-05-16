@@ -4,13 +4,6 @@ body{
 	min-height: 100vh;
 	background: white;
 }
-.item{
-margin-bottom: 15px;
-}
-.container {
-      display: grid;
-      align-items: center;
-     }
 
 .container .item:nth-child(2){ /*Only second item padding and center text*/
   padding-left: 1em;
@@ -82,14 +75,11 @@ input[type=submit] {
 	font-family: sans-serif;
 	letter-spacing: 2px;
 	text-decoration: none;
-
-
 }
 
 input[type=submit]:hover {
 	background-color: #45a049;
 }
-
 
 img{
 width:10em;
@@ -114,4 +104,69 @@ margin: 1px;
 
 .topbar{
 margin-bottom: 50px;
+}
+.check:before{
+	content: '';
+	position: absolute;
+	width: 50px;
+	height: 25px;
+	background: #333;
+	border-radius: 25px;
+}
+.check:after{
+	content: '';
+	position: absolute;
+	left:0px;
+	width:25px;
+	height:25px;
+	background: #fff;
+	border-radius: 255px;
+	transition: 0.25s;
+	border: 2px solid #333;
+	box-sizing: border-box;
+}
+.check:checked:after{
+	left: 25px;
+	border: 2px solid #00a1ff;
+}
+.container .content{
+	display: none;
+	margin-top: 20px;
+
+}
+.container .content.contentDanish{
+	display:block;
+
+}
+
+.check:checked ~ .content.contentDanish{
+	display: none;
+}
+.check:checked ~ .content.contentEnglish{
+	display: block;
+}
+
+.check {
+	position: relative;
+	width: 50px;
+}
+
+#sprog{
+	float:right;
+	display:flex;
+}
+
+.container img {
+	float: right;
+	width:50px;
+	height:25px;
+}
+.container [type ="checkbox"]
+{
+	float: right;
+	display:flex;
+}
+.center{
+	display: flex;
+	justify-content: center;
 }
