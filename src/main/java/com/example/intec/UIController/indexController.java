@@ -24,7 +24,7 @@ public class indexController {
         Person person = new Person();
         firmaListen = uc.hentAlleTransportFirma();
         Firma tom = new Firma();
-        String otherFirmanavn = " ";
+        String otherFirmanavn = "";
         model.addAttribute("firmaliste", firmaListen);
         model.addAttribute("person", person);
         model.addAttribute("otherFirmanavn", otherFirmanavn);
@@ -83,8 +83,15 @@ public class indexController {
 
 
     @PostMapping("/adminLogin")
-    public String loginPost(@ModelAttribute("admin") Admin admin) {
-        return "index";
+    public String loginPost(@ModelAttribute("admin") Admin admin, Model model) {
+        if(uc.adminLogin(admin) == true) {
+            return "index";
+        }
+        else {
+            String forkertLogin = "Forkert login-oplysninger";
+            model.addAttribute("loginError", forkertLogin);
+            return "adminLogin";
+        }
     }
 
 }

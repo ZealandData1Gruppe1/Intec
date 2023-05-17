@@ -15,16 +15,29 @@
 
 <div class="formtext">
     <form action="http://localhost:8080/adminLogin" method="post" th:object="${admin}">
-        <tr>
+
+
+<div class = "content contentDanish">
+    <div class ="center">
+        <td th:if="${loginError}" class="error">Forkerte login oplysninger, prøv igen. </td>
+    </div>
+</div>
+<div class = "content contentEnglish">
+    <div class ="center">
+        <td th:if="${loginError}" class="error"> Error in login, please try again</td>
+    </div>
+</div>
+
+
             <center>
                 <td class = "overskrift">Indtast login oplysninger</td>
             </center>
-        </tr>
+
 
         <th: for="brugernavn" >Brugernavn</th:>
         <input type="text" th:field="*{brugernavn}" name="brugernavn" />
         <th: for="kode" >Kode</th:>
-        <input type="text" th:field="*{kode}" name="kode" />
+        <input type="password" th:field="*{kode}" name="kode" />
 
         <center>
             <input type="submit" value="Login">

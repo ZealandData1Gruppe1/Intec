@@ -149,12 +149,12 @@ public class DataController {
     public Admin hentAdmin(String brugernavn){
         Admin admin = new Admin();
         try{
-            String sql = "Select * from admin where brugernavn = '"+brugernavn+"'";
+            String sql = "Select * from login where username = '"+brugernavn+"'";
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
-                admin.setBrugernavn(rs.getString("brugernavn"));
-                admin.setKode(rs.getString("kode"));
+                admin.setBrugernavn(rs.getString("username"));
+                admin.setKode(rs.getString("password"));
             }
             stmt.close();
         } catch (SQLException e) {
