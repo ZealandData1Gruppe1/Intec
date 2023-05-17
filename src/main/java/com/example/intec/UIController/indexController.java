@@ -24,7 +24,7 @@ public class indexController {
         Person person = new Person();
         firmaListen = uc.hentAlleTransportFirma();
         Firma tom = new Firma();
-        String otherFirmanavn = " ";
+        String otherFirmanavn = "";
         model.addAttribute("firmaliste", firmaListen);
         model.addAttribute("person", person);
         model.addAttribute("otherFirmanavn", otherFirmanavn);
@@ -51,7 +51,7 @@ public class indexController {
                 valgtFirma = firmaListen.get(i);
             }
         }
-            if (uc.checkNavnForIkkeBogstaver(person.getFornavn()) == true)
+        if (uc.checkNavnForIkkeBogstaver(person.getFornavn()) == true)
             {
                 if (uc.checkNavnForIkkeBogstaver(person.getEfternavn()) == true)
                 {

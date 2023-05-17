@@ -39,8 +39,6 @@ public class Usecase {
                 db.opretPerson(p);
                 person = db.hentPerson(p.getIdNR());
             }
-
-
             person = p;
         Date nu = new Date();
         Registrering r = new Registrering(person,firma, nu, location);
