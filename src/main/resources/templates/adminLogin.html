@@ -9,31 +9,57 @@
 <header class = "topbar">
   <img src="logo.jpg"/>
 </header>
-<div class = " tilbage">
-  <a href="http://localhost:8080/">Til forside</a>
-</div>
+<div class="container">
 
 <div class="formtext">
     <form action="http://localhost:8080/adminLogin" method="post" th:object="${admin}">
-        <tr>
-            <center>
-                <td class = "overskrift">Indtast login oplysninger</td>
-            </center>
-        </tr>
 
-        <th: for="brugernavn" >Brugernavn</th:>
+        <img src ="usa.jpg">
+        <input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
+        <img src ="dk.jpeg" >
+
+        <div class = "content contentDanish">
+            <a href="http://localhost:8080/">Til forside</a>
+        </div>
+        <div class = "content contentEnglish">
+            <a href="http://localhost:8080/">To Frontpage</a>
+        </div>
+        <br>
+
+        <div class = "content contentDanish">
+            <div class ="center">
+                <text class = "overskrift"> Indtast din log ind oplysninger </text>
+            </div>
+        </div>
+        <div class = "content contentEnglish">
+            <div class ="center">
+                <text class = "overskrift">Enter your log in information </text>
+            </div>
+        </div>
+        <div class = "content contentDanish">
+            <th: for="brugernavn" >Fornavn</th:>
+        </div>
+        <div class = "content contentEnglish">
+            <th: for="brugernavn" >First name</th:>
+        </div>
         <input type="text" th:field="*{brugernavn}" name="brugernavn" />
-        <th: for="kode" >Kode</th:>
+        <div class = "content contentDanish">
+            <th: for="kode" >kode</th:>
+        </div>
+        <div class = "content contentEnglish">
+            <th: for="kode" >Password</th:>
+        </div>
         <input type="text" th:field="*{kode}" name="kode" />
+        <div class = "content contentDanish">
 
         <center>
             <input type="submit" value="Login">
         </center>
-
+        </div>
     </form>
 
 </div>
-
+</div>
 
 </body>
 </html>
