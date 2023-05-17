@@ -14,6 +14,22 @@
 <div class="formtext">
     <form action="http://localhost:8080/adminLogin" method="post" th:object="${admin}">
 
+
+
+<div class = "content contentDanish">
+    <div class ="center">
+        <td th:if="${loginError}" class="error">Forkerte login oplysninger, prøv igen. </td>
+    </div>
+</div>
+<div class = "content contentEnglish">
+    <div class ="center">
+        <td th:if="${loginError}" class="error"> Error in login, please try again</td>
+    </div>
+</div>
+
+
+
+
         <img src ="usa.jpg">
         <input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
         <img src ="dk.jpeg" >
@@ -37,19 +53,24 @@
             </div>
         </div>
         <div class = "content contentDanish">
-            <th: for="brugernavn" >Fornavn</th:>
+            <th: for="brugernavn" >Brugernavn</th:>
         </div>
         <div class = "content contentEnglish">
-            <th: for="brugernavn" >First name</th:>
+            <th: for="brugernavn" >Username</th:>
         </div>
         <input type="text" th:field="*{brugernavn}" name="brugernavn" />
+
         <div class = "content contentDanish">
-            <th: for="kode" >kode</th:>
+            <th: for="kode" >Kode</th:>
         </div>
         <div class = "content contentEnglish">
             <th: for="kode" >Password</th:>
         </div>
         <input type="text" th:field="*{kode}" name="kode" />
+
+        <input type="password" th:field="*{kode}" name="kode" />
+
+
         <center>
             <input type="submit" value="Login">
         </center>

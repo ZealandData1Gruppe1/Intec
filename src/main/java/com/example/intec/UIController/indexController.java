@@ -83,8 +83,15 @@ public class indexController {
 
 
     @PostMapping("/adminLogin")
-    public String loginPost(@ModelAttribute("admin") Admin admin) {
-        return "index";
+    public String loginPost(@ModelAttribute("admin") Admin admin, Model model) {
+        if(uc.adminLogin(admin) == true) {
+            return "index";
+        }
+        else {
+            String forkertLogin = "Forkert login-oplysninger";
+            model.addAttribute("loginError", forkertLogin);
+            return "adminLogin";
+        }
     }
 
 }
