@@ -12,10 +12,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DataController {
+    private static DataController INSTANCE;
     private Connection connection;
     private Statement stmt;
     int locationID;
-    public DataController(String location) {
+    private DataController(String location) {
         connection = null;
         stmt = null;
         if(location.equals("Haslev") || location.equals(""))
@@ -36,6 +37,14 @@ public class DataController {
                 throwables.printStackTrace();
             }
         }
+    }
+
+    public static DataController getInstance(String location) {
+        if(INSTANCE == null) {
+            INSTANCE = new DataController(location);
+        }
+
+        return INSTANCE;
     }
     public void insertRegistration(Registrering r)
     {
