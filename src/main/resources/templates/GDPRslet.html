@@ -14,7 +14,7 @@
 <div class="container">
   <div class="formtext">
 
-    <form action="http://localhost:8080/opretFirma" method="post">
+    <form action="http://localhost:8080/GDPRslet" method="post">
 
       <img src ="usa.jpg">
       <input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
@@ -29,22 +29,22 @@
       <br>
       <div class = "content contentDanish">
         <div class ="center">
-          <text class = "overskrift"> Indtast Firma oplysninger </text>
+          <text class = "overskrift"> Indtast ID nummer på den person der skal slettes</text>
         </div>
       </div>
       <div class = "content contentEnglish">
         <div class ="center">
-          <text class = "overskrift">Enter company information </text>
+          <text class = "overskrift">Enter the ID number for the person to be deleted </text>
         </div>
       </div>
 
       <div class = "content contentDanish">
-        <th: for="firma" >Firmanavn</th:>
+        <th: for="idnr" >ID nummer på personen</th:>
       </div>
       <div class = "content contentEnglish">
-        <th: for="firma" >Companyname</th:>
+        <th: for="idnr" >ID number for the person</th:>
       </div>
-      <input type="text" th:value="${firma}" name="firma" />
+      <input type="text" th:value="${idnr}" name="idnr" />
 
       <div class ="center">
           <input type="submit" value="Accept">

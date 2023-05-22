@@ -25,15 +25,14 @@ public class indexController {
         firmaListen = uc.hentAlleTransportFirma();
         Firma tom = new Firma();
         String otherFirmanavn = "";
+        model.addAttribute("otherFirmanavn", otherFirmanavn);
         model.addAttribute("firmaliste", firmaListen);
         model.addAttribute("person", person);
-        model.addAttribute("otherFirmanavn", otherFirmanavn);
         model.addAttribute("valgtfirma", tom);
 
         return "registrer";
 
     }
-
     @GetMapping("/")
     public String visForside(Model model) {
         uc.setLocation();
@@ -88,7 +87,7 @@ public class indexController {
             return "admin";
         }
         if ((uc.adminLogin(login).equalsIgnoreCase("EkstrenMyndighed"))){
-            return "udtræk";
+            return "historik";
         }
         else {
             String forkertLogin = "Forkert login-oplysninger";
@@ -117,7 +116,6 @@ public class indexController {
     @PostMapping("/opretLogin")
     public String opretLoginPost(@ModelAttribute ("login") Login login, Model model) {
 
-
         if(uc.opretLogin(login) == true){
             return "index";
         }
@@ -130,17 +128,77 @@ public class indexController {
         return "index";
     }
 
-
-
     @GetMapping("/opretFirma")
     public String opretFirma(Model model){
-        Firma firma = new Firma();
+        String firma = "";
         model.addAttribute("firma", firma);
+
         return "opretFirma";
     }
 
     @PostMapping("/opretFirma")
-    public String opretFirmaPost(@ModelAttribute("firma") Firma firma, Model model){
-        return "opretFirma";
+    public String opretFirmaPost(@ModelAttribute("firma") String firma, Model model){
+        uc.addToCompanyList(firma);
+        return "index";
     }
+
+    @GetMapping("/slet")
+    public String sletData (Model model)
+    {
+        uc.sletGamleOplysninger();
+
+        String dataSlettet = "";
+        model.addAttribute("dataSlettet", dataSlettet);
+        return "admin";
+    }
+
+    @GetMapping("/historik")
+    public String udtraekData (Model model)
+    {
+        return "historik";
+    }
+
+    @GetMapping("/fjernFirma")
+    public String removeCompanyGet(Model model)
+    {
+        firmaListen = uc.hentAlleTransportFirma();
+        model.addAttribute("firmaliste", firmaListen);
+        return "fjernFirma";
+    }
+
+    @PostMapping("/fjernFirma")
+    public void removeCompanyPost(Model model, @ModelAttribute("valgtfirma") Firma firma)
+    {
+
+        Firma valgtFirma = new Firma();
+        for (int i = 0; i < firmaListen.size(); i++)
+        {
+            if (firmaListen.get(i).getFirmanavn().equalsIgnoreCase(firma.getFirmanavn()))
+            {
+                valgtFirma = firmaListen.get(i);
+            }
+        }
+
+    }
+    @GetMapping("/GDPRslet")
+    public String removePersonGet(Model model)
+    {
+        firmaListen = uc.hentAlleTransportFirma();
+        String idnr = "";
+        model.addAttribute("idnr", idnr);
+        model.addAttribute("firmaliste", firmaListen);
+        return "GDPRslet";
+    }
+
+    @PostMapping("/GDPRslet")
+    public String removePersonPost(Model model, @ModelAttribute("idnr") String idnr)
+    {
+        if(uc.sletOplysningerForID(Integer.parseInt(idnr)) != true)
+        {
+            String GDPRdataslet = "";
+            model.addAttribute("GDPRdataslet",GDPRdataslet);
+        }
+        return "admin";
+    }
+
 }

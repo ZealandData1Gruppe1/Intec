@@ -203,7 +203,7 @@ public class DataController {
         d.setYear(d.getYear()-years);
         return d;
     }
-    public void purgeData() {
+    public void sletGamleData() {
         deleteUnusedPerson();
         deleteOldRegistrations();
     }
@@ -232,8 +232,27 @@ public class DataController {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-
-
     }
-
+    public void updateCopanyOnlist(Firma f)
+    {
+        try{
+            String sql = "UPDATE company set onlist = 1 WHERE id = '"+f.getID()+"'";
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void updateCopanyOfflist(Firma f)
+    {
+        try{
+            String sql = "UPDATE company set onlist = 0 WHERE id = '"+f.getID()+"'";
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

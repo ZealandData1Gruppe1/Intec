@@ -12,7 +12,7 @@
 </header>
 
 <div class="container">
-
+    <div class="formtext">
 <img src ="usa.jpg">
 <input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
 <img src ="dk.jpeg" >
@@ -20,48 +20,65 @@
 
 
 
-
-    <div class = "content contentDanish">
+        <div class = "content contentDanish">
         <a href="http://localhost:8080/">Til forside</a>
-    </div>
-    <div class = "content contentEnglish">
+        </div>
+        <div class = "content contentEnglish">
         <a href="http://localhost:8080/">To Frontpage</a>
-    </div>
+        </div>
+
+        <div class = "content contentDanish">
+        <a href="http://localhost:8080/opretFirma">Tilføj firma på firmalisten</a>
+        </div>
+        <div class = "content contentEnglish">
+        <a href="http://localhost:8080/opretFirma">Add company on companylist</a>
+        </div>
+
+        <div class = "content contentDanish">
+            <a href="http://localhost:8080/fjernFirma">Fjern firma på firmalisten</a>
+        </div>
+        <div class = "content contentEnglish">
+            <a href="http://localhost:8080/fjernFirma">Remove company from companylist</a>
+        </div>
 
 
-
-    <div class = "content contentDanish">
-    <a href="http://localhost:8080/opretFirma">Opret firma på firmalisten</a>
-    </div>
-    <div class = "content contentEnglish">
-    <a href="http://localhost:8080/opretFirma">Create company on companylist</a>
-    </div>
-
-
-    <div class = "content contentDanish">
+        <div class = "content contentDanish">
         <a href="http://localhost:8080/opretLogin">Opret login</a>
-    </div>
-    <div class = "content contentEnglish">
+        </div>
+        <div class = "content contentEnglish">
         <a href="http://localhost:8080/opretLogin">Create login</a>
-    </div>
+         </div>
 
 
-    <div class = "content contentDanish">
-        <a href="http://localhost:8080/">Udtræk data</a>
-    </div>
-    <div class = "content contentEnglish">
-        <a href="http://localhost:8080/">Get data</a>
-    </div>
+        <div class = "content contentDanish">
+            <a href="http://localhost:8080/historik">Udtræk data</a>
+        </div>
+        <div class = "content contentEnglish">
+            <a href="http://localhost:8080/historik">Get data</a>
+        </div>
 
 
+        <div class = "content contentDanish">
+            <a href="http://localhost:8080/slet">Slet gammelt data</a>
+            <text th:if="${dataSlettet}" class="error">Alle personoplysninger ældre end 2 år er slettet </text>
+        </div>
+        <div class = "content contentEnglish">
+            <a href="http://localhost:8080/slet">Delete old data</a>
+            <text th:if="${dataSlettet}" class="error">All personal information older than 2 years has been deleted </text>
+        </div>
 
-    <div class = "content contentDanish">
-        <a href="http://localhost:8080/">Slet gammelt data</a>
-    </div>
-    <div class = "content contentEnglish">
-        <a href="http://localhost:8080/">Delete old data</a>
-    </div>
 
+        <div class = "content contentDanish">
+            <a href="http://localhost:8080/GDPRslet">Slet personoplysninger for en person</a>
+
+                <text th:if="${GDPRdataslet}" class="error"> Alle data slettet</text>
+        </div>
+        <div class = "content contentEnglish">
+            <a href="http://localhost:8080/GDPRslet">Delete personal information for a person</a>
+
+                <text th:if="${GDPRdataslet}" class="error">All data deleted </text>
+            </div>
+</div>
 
 </div>
 

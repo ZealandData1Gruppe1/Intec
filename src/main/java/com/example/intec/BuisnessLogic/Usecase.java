@@ -68,9 +68,6 @@ public class Usecase {
         } else return false;
     }
 
-
-
-
     public boolean findesCompany(String firmanavn) {
         if (db.hentFirma(firmanavn).getID() > 0) {
             return true;
@@ -109,7 +106,6 @@ public class Usecase {
     }
     public String adminLogin (Login a){
         Login dataLogin = db.hentLogin(a.getBrugernavn());
-        System.out.println(dataLogin);
         if (a.getBrugernavn().equals(dataLogin.getBrugernavn()) && a.getKode().equals(dataLogin.getKode())){
             return dataLogin.getRolle();
         }
@@ -129,13 +125,16 @@ public class Usecase {
         }
         return true;
     }
-    public Boolean sletOplysninger(int idnr){
+    public Boolean sletOplysningerForID(int idnr){
         Person p = new Person();
         db.sletOplysningerOmPerson(idnr);
         p.setIdNR(idnr);
         return findesPerson(idnr);
     }
-
+    public void sletGamleOplysninger()
+    {
+        db.sletGamleData();
+    }
     public boolean opretLogin(Login l ) {
         if(findesPerson(l.getIdNR()) == false){
             Person p = new Person();
@@ -149,6 +148,21 @@ public class Usecase {
         }
         db.insertLogin(l);
         return true;
+    }
+    public void addToCompanyList(String navn)
+    {
+        if(findesCompany(navn) == false)
+        {
+          db.opretFirma(navn);
+        }
+        Firma f =db.hentFirma(navn);
+        db.updateCopanyOnlist(f);
+    }
+    public void removeCompanyFromList(String navn)
+    {
+
+        Firma f =db.hentFirma(navn);
+        db.updateCopanyOfflist(f);
     }
 }
 
