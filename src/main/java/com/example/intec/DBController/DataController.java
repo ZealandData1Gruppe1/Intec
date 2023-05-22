@@ -1,13 +1,12 @@
 package com.example.intec.DBController;
 
-import com.example.intec.Entititer.Admin;
+import com.example.intec.Entititer.Login;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -156,21 +155,23 @@ public class DataController {
         return tid;
     }
 
-    public Admin hentAdmin(String brugernavn){
-        Admin admin = new Admin();
+    public Login hentLogin(String brugernavn){
+        Login login = new Login();
         try{
             String sql = "Select * from login where username = '"+brugernavn+"'";
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
-                admin.setBrugernavn(rs.getString("username"));
-                admin.setKode(rs.getString("password"));
+                login.setBrugernavn(rs.getString("username"));
+                login.setKode(rs.getString("password"));
+                login.setRolle(login.rollefromString(rs.getString("role")));
+                login.setIdNR(rs.getInt("pid"));
             }
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return admin;
+        return login;
     }
 
     public void deleteOldRegistrations(){
@@ -218,6 +219,20 @@ public class DataController {
     } catch (SQLException e) {
         throw new RuntimeException(e);
     }
+
+    }
+
+    public void insertLogin(Login l) {
+
+            try{
+                String sql = "insert into login (username, password, role,pid) VALUES ('"+l.getBrugernavn()+"', ' " +l.getKode() +"',' " +l.getRolle()+"',"+l.getIdNR()+")";
+                Statement stmt = connection.createStatement();
+                stmt.execute(sql);
+                stmt.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
 
     }
 

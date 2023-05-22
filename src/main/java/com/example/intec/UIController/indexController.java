@@ -1,7 +1,7 @@
 package com.example.intec.UIController;
 
 import com.example.intec.BuisnessLogic.Usecase;
-import com.example.intec.Entititer.Admin;
+import com.example.intec.Entititer.Login;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import org.springframework.stereotype.Controller;
@@ -74,23 +74,26 @@ public class indexController {
     }
 
 
-    @GetMapping("/adminLogin")
+    @GetMapping("/login")
     public String visAdminLogin(Model model) {
-        Admin admin = new Admin();
-        model.addAttribute("admin",admin);
-        return "adminLogin";
+        Login login = new Login();
+        model.addAttribute("login", login);
+        return "login";
     }
 
 
-    @PostMapping("/adminLogin")
-    public String loginPost(@ModelAttribute("admin") Admin admin, Model model) {
-        if(uc.adminLogin(admin) == true) {
+    @PostMapping("/login")
+    public String loginPost(@ModelAttribute("login") Login login, Model model) {
+        if(uc.adminLogin(login).equalsIgnoreCase("Admin")) {
             return "admin";
+        }
+        if ((uc.adminLogin(login).equalsIgnoreCase("EkstrenMyndighed"))){
+            return "udtræk";
         }
         else {
             String forkertLogin = "Forkert login-oplysninger";
             model.addAttribute("loginError", forkertLogin);
-            return "adminLogin";
+            return "login";
         }
     }
 
@@ -102,16 +105,28 @@ public class indexController {
         return "admin";
     }
 
-    @GetMapping("/opretAdminLogin")
-    public String opretAdmin(Model model) {
-        Admin admin = new Admin();
-        model.addAttribute("admin",admin);
-        return "opretAdminLogin";
+    @GetMapping("/opretLogin")
+    public String opretLogin(Model model) {
+        Login login = new Login();
+        boolean language = uc.shouldDisplayEnglish();
+        model.addAttribute("login", login);
+        model.addAttribute("language",language);
+        return "opretLogin";
     }
 
-    @PostMapping("/opretAdminLogin")
-    public String opretAdminPost(@ModelAttribute ("admin") Admin admin, Model model) {
+    @PostMapping("/opretLogin")
+    public String opretLoginPost(@ModelAttribute ("login") Login login, Model model) {
 
+
+        if(uc.opretLogin(login) == true){
+            return "index";
+        }
+
+        if (uc.opretLogin(login) == false){
+            String forkertLogin = "Forkert login-oplysninger";
+            model.addAttribute("loginError", forkertLogin);
+            return "opretLogin";
+        }
         return "index";
     }
 

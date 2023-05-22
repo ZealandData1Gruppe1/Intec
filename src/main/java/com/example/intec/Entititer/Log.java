@@ -5,14 +5,14 @@ import java.util.Date;
 public class Log {
     private String soening;
     private Date dato;
-    private Admin bruger;
+    private Login bruger;
     private int id;
 
    public Log (){
 
     }
 
-    public Log(String soening, Date dato, Admin bruger, int id) {
+    public Log(String soening, Date dato, Login bruger, int id) {
         this.soening = soening;
         this.dato = dato;
         this.bruger = bruger;
@@ -35,11 +35,11 @@ public class Log {
         this.dato = dato;
     }
 
-    public Admin getBruger() {
+    public Login getBruger() {
         return bruger;
     }
 
-    public void setBruger(Admin bruger) {
+    public void setBruger(Login bruger) {
         this.bruger = bruger;
     }
 

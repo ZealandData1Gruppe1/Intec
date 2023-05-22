@@ -8,10 +8,11 @@ public class Person {
     public Person(){
 
     }
-    public Person(String fornavn, String efternavn) {
+
+    public Person(int idNR, String fornavn, String efternavn) {
+        this.idNR = idNR;
         this.fornavn = fornavn;
         this.efternavn = efternavn;
-
     }
 
     public String getFornavn() {

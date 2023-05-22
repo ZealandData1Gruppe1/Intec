@@ -1,14 +1,13 @@
 package com.example.intec.BuisnessLogic;
 
 import com.example.intec.DBController.DataController;
-import com.example.intec.Entititer.Admin;
+import com.example.intec.Entititer.Login;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
 
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.TimeZone;
 
 import static com.example.intec.DBController.DataController.getInstance;
@@ -61,6 +60,17 @@ public class Usecase {
         } else return false;
     }
 
+    public boolean findesBrugernavn(String brugernavn) {
+        ;
+        Login l1 = db.hentLogin(brugernavn);
+        if (l1.getIdNR() > 0) {
+            return true;
+        } else return false;
+    }
+
+
+
+
     public boolean findesCompany(String firmanavn) {
         if (db.hentFirma(firmanavn).getID() > 0) {
             return true;
@@ -97,13 +107,14 @@ public class Usecase {
             location = "Boston";
             return location;}
     }
-    public boolean adminLogin (Admin a){
-        Admin dataAdmin = db.hentAdmin(a.getBrugernavn());
-        if (a.getBrugernavn().equals(dataAdmin.getBrugernavn()) && a.getKode().equals(dataAdmin.getKode())){
-            return true;
+    public String adminLogin (Login a){
+        Login dataLogin = db.hentLogin(a.getBrugernavn());
+        System.out.println(dataLogin);
+        if (a.getBrugernavn().equals(dataLogin.getBrugernavn()) && a.getKode().equals(dataLogin.getKode())){
+            return dataLogin.getRolle();
         }
         else
-            return false;
+            return "false";
     }
     public Boolean shouldDisplayEnglish()
     {
@@ -123,6 +134,21 @@ public class Usecase {
         db.sletOplysningerOmPerson(idnr);
         p.setIdNR(idnr);
         return findesPerson(idnr);
+    }
+
+    public boolean opretLogin(Login l ) {
+        if(findesPerson(l.getIdNR()) == false){
+            Person p = new Person();
+            p.setIdNR(l.getIdNR());
+            p.setFornavn(l.getFornavn());
+            p.setEfternavn(l.getEfternavn());
+            db.opretPerson(p);
+        }
+        if(findesBrugernavn(l.getBrugernavn()) == true){
+            return false;
+        }
+        db.insertLogin(l);
+        return true;
     }
 }
 
