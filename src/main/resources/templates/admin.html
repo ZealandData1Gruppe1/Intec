@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="ui_styles.css">
+    <meta charset="UTF-8">
+    <title>Admin side</title>
+</head>
+<body>
+
+<header class = "topbar">
+    <img src="logo.jpg"/>
+</header>
+
+<div class="container">
+
+<img src ="usa.jpg">
+<input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
+<img src ="dk.jpeg" >
+
+
+
+
+
+    <div class = "content contentDanish">
+        <a href="http://localhost:8080/">Til forside</a>
+    </div>
+    <div class = "content contentEnglish">
+        <a href="http://localhost:8080/">To Frontpage</a>
+    </div>
+
+
+
+    <div class = "content contentDanish">
+    <a href="http://localhost:8080/opretFirma">Opret firma på firmalisten</a>
+    </div>
+    <div class = "content contentEnglish">
+    <a href="http://localhost:8080/opretFirma">Create company on companylist</a>
+    </div>
+
+
+    <div class = "content contentDanish">
+        <a href="http://localhost:8080/opretAdminLogin">Opret login</a>
+    </div>
+    <div class = "content contentEnglish">
+        <a href="http://localhost:8080/opretAdminLogin">Create login</a>
+    </div>
+
+
+    <div class = "content contentDanish">
+        <a href="http://localhost:8080/">Udtræk data</a>
+    </div>
+    <div class = "content contentEnglish">
+        <a href="http://localhost:8080/">Get data</a>
+    </div>
+
+
+
+    <div class = "content contentDanish">
+        <a href="http://localhost:8080/">Slet gammelt data</a>
+    </div>
+    <div class = "content contentEnglish">
+        <a href="http://localhost:8080/">Delete old data</a>
+    </div>
+
+
+</div>
+
+
+
+
+
+</body>
+</html>

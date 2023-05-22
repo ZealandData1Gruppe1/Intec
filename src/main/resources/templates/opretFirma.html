@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <link rel="stylesheet" href="ui_styles.css">
+  <meta charset="UTF-8">
+  <title>Opret admin</title>
+</head>
+<body>
+
+<header class = "topbar">
+  <img src="logo.jpg"/>
+</header>
+
+<div class="container">
+  <div class="formtext">
+
+    <form action="http://localhost:8080/opretAdminLogin" method="post" th:object="${firma}">
+
+      <img src ="usa.jpg">
+      <input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
+      <img src ="dk.jpeg" >
+
+      <div class = "content contentDanish">
+        <a href="http://localhost:8080/">Til forside</a>
+      </div>
+      <div class = "content contentEnglish">
+        <a href="http://localhost:8080/">To Frontpage</a>
+      </div>
+      <br>
+      <div class = "content contentDanish">
+        <div class ="center">
+          <text class = "overskrift"> Indtast Firma oplysninger </text>
+        </div>
+      </div>
+      <div class = "content contentEnglish">
+        <div class ="center">
+          <text class = "overskrift">Enter company information </text>
+        </div>
+      </div>
+      <div class = "content contentDanish">
+        <th: for="firmanavn" >Firmanavn</th:>
+      </div>
+      <div class = "content contentEnglish">
+        <th: for="firmanavn" >Companyname</th:>
+      </div>
+      <input type="text" th:field="*{firmanavn}" name="firmanavn" />
+
+      <center>
+        <input type="submit" value="Accept">
+      </center>
+
+
+
+
+
+    </form>
+  </div>
+
+
+
+</div>
+
+</body>
+</html>
