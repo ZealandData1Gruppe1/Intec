@@ -202,10 +202,23 @@ public class DataController {
         d.setYear(d.getYear()-years);
         return d;
     }
-    public void purgeData()
-    {
+    public void purgeData() {
         deleteUnusedPerson();
         deleteOldRegistrations();
+    }
+
+    public void sletOplysningerOmPerson(int idnr){
+        try{
+            String sql1 = "Delete from registration where pid = '" + idnr +"'";
+            String sql2 = "Delete from person where idnr = '" + idnr+"'";
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql1);
+            stmt.execute(sql2);
+            stmt.close();
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+
     }
 
 }
