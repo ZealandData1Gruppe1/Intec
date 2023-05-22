@@ -11,14 +11,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.TimeZone;
 
+import static com.example.intec.DBController.DataController.getInstance;
+
 public class Usecase {
 
     String location = "";
     DataController db;
 
     public Usecase() {
-        this.db = new DataController(setLocation());
+        this.db = getInstance(setLocation());
     }
+
+
 
     public void registrerPerson(Person p, Firma f, String otherfirma) {
         Person person = new Person();
