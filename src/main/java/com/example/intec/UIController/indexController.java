@@ -85,7 +85,7 @@ public class indexController {
     @PostMapping("/adminLogin")
     public String loginPost(@ModelAttribute("admin") Admin admin, Model model) {
         if(uc.adminLogin(admin) == true) {
-            return "index";
+            return "admin";
         }
         else {
             String forkertLogin = "Forkert login-oplysninger";
@@ -94,4 +94,38 @@ public class indexController {
         }
     }
 
+
+    @GetMapping("/admin")
+    public String admin(Model model) {
+
+
+        return "admin";
+    }
+
+    @GetMapping("/opretAdminLogin")
+    public String opretAdmin(Model model) {
+        Admin admin = new Admin();
+        model.addAttribute("admin",admin);
+        return "opretAdminLogin";
+    }
+
+    @PostMapping("/opretAdminLogin")
+    public String opretAdminPost(@ModelAttribute ("admin") Admin admin, Model model) {
+
+        return "index";
+    }
+
+
+
+    @GetMapping("/opretFirma")
+    public String opretFirma(Model model){
+        Firma firma = new Firma();
+        model.addAttribute("firma", firma);
+        return "opretFirma";
+    }
+
+    @PostMapping("/opretFirma")
+    public String opretFirmaPost(@ModelAttribute("firma") Firma firma, Model model){
+        return "opretFirma";
+    }
 }
