@@ -7,6 +7,7 @@ import com.example.intec.Entititer.Registrering;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -162,4 +163,40 @@ public class DataController {
         }
         return admin;
     }
+
+    public void deleteOldRegistrations(){
+        Date now = new Date();
+        Date twoYearsAgo = substractYears(now,2);
+        try{
+            String sql = "delete from registration where checkin < '"+timeFormatter(twoYearsAgo)+"'";
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void deleteUnusedPerson(){
+        Date now = new Date();
+        Date twoYearsAgo = substractYears(now,2);
+        try{
+            String sql = "delete from person where timestamp < '"+timeFormatter(twoYearsAgo)+"'";
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Date substractYears(Date d, int years)
+    {
+        d.setYear(d.getYear()-years);
+        return d;
+    }
+    public void purgeData()
+    {
+        deleteUnusedPerson();
+        deleteOldRegistrations();
+    }
+
 }

@@ -103,6 +103,7 @@ public class Usecase {
     }
     public Boolean shouldDisplayEnglish()
     {
+        db.deleteUnusedPerson();
         if( location.equalsIgnoreCase("Haslev"))
         {
             return false;
