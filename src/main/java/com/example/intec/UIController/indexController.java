@@ -4,13 +4,17 @@ import com.example.intec.BuisnessLogic.Usecase;
 import com.example.intec.Entititer.Login;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
+import com.example.intec.Entititer.Registrering;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Controller
 public class indexController {
@@ -161,7 +165,34 @@ public class indexController {
         {
             return "redirect:/login";
         }
+
         return "historik";
+    }
+
+    @PostMapping("/historik")
+    public String getDataPost(@ModelAttribute ("registrationList")ArrayList<Registrering> registrationlist,@ModelAttribute("idnr") int idnr,@ModelAttribute("startdato") String startdato,@ModelAttribute("slutdato") String slutdato)
+    {
+
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date start = null;
+        Date slut = null;
+        if(startdato.trim().isEmpty()== false) {
+            try {
+                start = formater.parse(startdato);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            try {
+                slut = formater.parse(slutdato);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        registrationlist = uc.getHistoryData(idnr,start,slut);
+        return "index";
     }
 
     @GetMapping("/fjernFirma")

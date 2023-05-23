@@ -7,9 +7,7 @@ public class Registrering {
     private int id;
     private Person registreringPerson;
     private Date tjekinTidspunkt;
-    private Date tjekudTidspunkt;
     private String lokation;
-
     private Firma firma;
 
     public Registrering()
@@ -41,14 +39,6 @@ public class Registrering {
         this.tjekinTidspunkt = tjekinTidspunkt;
     }
 
-    public Date getTjekudTidspunkt() {
-        return tjekudTidspunkt;
-    }
-
-    public void setTjekudTidspunkt(Date tjekudTidspunkt) {
-        this.tjekudTidspunkt = tjekudTidspunkt;
-    }
-
     public String getLokation() {
         return lokation;
     }
@@ -71,5 +61,16 @@ public class Registrering {
 
     public void setFirma(Firma firma) {
         this.firma = firma;
+    }
+
+    @Override
+    public String toString() {
+        return "Registrering{" +
+                "id=" + id +
+                ", registreringPerson=" + registreringPerson +
+                ", tjekinTidspunkt=" + tjekinTidspunkt +
+                ", lokation='" + lokation + '\'' +
+                ", firma=" + firma +
+                '}';
     }
 }
