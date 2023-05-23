@@ -257,4 +257,109 @@ public class DataController {
             throw new RuntimeException(e);
         }
     }
+
+    public ArrayList<Registrering> getregistrationIDTime(int idnr, Date startdato, Date slutdato)
+    {
+        ArrayList<Registrering> registreringsListen = new ArrayList<>();
+        try{
+            String sql = "Select person.idnr, person.fname, person.lname, company.companyname, location.locationname, registration.id, registration.checkin \n" +
+                    "From (((registration " +
+                    "Inner join person on registration.pid = person.idnr) " +
+                    "Inner join company on registration.cid = company.id) " +
+                    "Inner join location on registration.locationid = location.id) " +
+                    "Where idnr = "+idnr+" AND registration.checkin > '"+timeFormatter(startdato)+"' AND registration.checkin < '" +timeFormatter(slutdato)+"'";
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                Firma f = new Firma();
+                Person p = new Person();
+                Registrering r = new Registrering();
+                f.setFirmanavn(rs.getString("companyname"));
+                r.setFirma(f);
+                p.setIdNR(rs.getInt("idnr"));
+                p.setFornavn(rs.getString("fname"));
+                p.setEfternavn(rs.getString("lname"));
+                r.setRegistreringPerson(p);
+                r.setTjekinTidspunkt(rs.getDate("checkin"));
+                r.setLokation(rs.getString("locationname"));
+                r.setId(rs.getInt("id"));
+                registreringsListen.add(r);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return registreringsListen;
+    }
+
+
+
+    public ArrayList<Registrering> getregistrationWithID(int idnr)
+    {
+        ArrayList<Registrering> registreringsListen = new ArrayList<>();
+        try{
+            String sql = "Select person.idnr, person.fname, person.lname, company.companyname, location.locationname, registration.id, registration.checkin \n" +
+                    "From (((registration " +
+                    "Inner join person on registration.pid = person.idnr) " +
+                    "Inner join company on registration.cid = company.id) " +
+                    "Inner join location on registration.locationid = location.id) " +
+                    "Where idnr = "+idnr;
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                Firma f = new Firma();
+                Person p = new Person();
+                Registrering r = new Registrering();
+                f.setFirmanavn(rs.getString("companyname"));
+                r.setFirma(f);
+                p.setIdNR(rs.getInt("idnr"));
+                p.setFornavn(rs.getString("fname"));
+                p.setEfternavn(rs.getString("lname"));
+                r.setRegistreringPerson(p);
+                r.setTjekinTidspunkt(rs.getDate("checkin"));
+                r.setLokation(rs.getString("locationname"));
+                r.setId(rs.getInt("id"));
+                registreringsListen.add(r);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return registreringsListen;
+    }
+
+
+    public ArrayList<Registrering> getregistrationWithTime(Date startdato, Date slutdato)
+    {
+        ArrayList<Registrering> registreringsListen = new ArrayList<>();
+        try{
+            String sql = "Select person.idnr, person.fname, person.lname, company.companyname, location.locationname, registration.id, registration.checkin \n" +
+                    "From (((registration " +
+                    "Inner join person on registration.pid = person.idnr) " +
+                    "Inner join company on registration.cid = company.id) " +
+                    "Inner join location on registration.locationid = location.id) " +
+                    "Where registration.checkin > '"+timeFormatter(startdato)+"' AND registration.checkin < '" +timeFormatter(slutdato)+"'";
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                Firma f = new Firma();
+                Person p = new Person();
+                Registrering r = new Registrering();
+                f.setFirmanavn(rs.getString("companyname"));
+                r.setFirma(f);
+                p.setIdNR(rs.getInt("idnr"));
+                p.setFornavn(rs.getString("fname"));
+                p.setEfternavn(rs.getString("lname"));
+                r.setRegistreringPerson(p);
+                r.setTjekinTidspunkt(rs.getDate("checkin"));
+                r.setLokation(rs.getString("locationname"));
+                r.setId(rs.getInt("id"));
+                registreringsListen.add(r);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return registreringsListen;
+    }
 }

@@ -114,7 +114,7 @@ public class Usecase {
     }
     public Boolean shouldDisplayEnglish()
     {
-        db.deleteUnusedPerson();
+
         if( location.equalsIgnoreCase("Haslev"))
         {
             return false;
@@ -161,6 +161,21 @@ public class Usecase {
 
         Firma f =db.hentFirma(navn);
         db.updateCopanyOfflist(f);
+    }
+
+    public ArrayList<Registrering> getHistoryData(int idnr, Date startdato, Date slutdato)
+    {
+        if (idnr == 0)
+        {
+            return db.getregistrationWithTime(startdato,slutdato);
+        }
+
+        if(startdato == null || slutdato == null)
+        {
+            return  db.getregistrationWithID(idnr); 
+        }
+
+        return db.getregistrationIDTime(idnr,startdato,slutdato);
     }
 }
 
