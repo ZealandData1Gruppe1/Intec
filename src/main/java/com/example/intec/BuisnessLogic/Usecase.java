@@ -14,6 +14,7 @@ import static com.example.intec.DBController.DataController.getInstance;
 
 public class Usecase {
 
+    Login userVerified = new Login(1,"","","","");
     String location = "";
     DataController db;
 
@@ -107,6 +108,7 @@ public class Usecase {
     public String adminLogin (Login a){
         Login dataLogin = db.hentLogin(a.getBrugernavn());
         if (a.getBrugernavn().equals(dataLogin.getBrugernavn()) && a.getKode().equals(dataLogin.getKode())){
+            userVerified = dataLogin;
             return dataLogin.getRolle();
         }
         else
@@ -161,6 +163,11 @@ public class Usecase {
 
         Firma f =db.hentFirma(navn);
         db.updateCopanyOfflist(f);
+    }
+
+
+    public Login getUserVerified() {
+        return userVerified;
     }
 }
 

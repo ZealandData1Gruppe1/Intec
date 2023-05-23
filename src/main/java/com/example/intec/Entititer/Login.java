@@ -13,11 +13,10 @@ public class Login extends Person{
 
     }
 
-    public Login(int idNR, String fornavn, String efternavn, String brugernavn, String kode, Rolle rolle) {
+    public Login(int idNR, String fornavn, String efternavn, String brugernavn, String kode) {
         super(idNR, fornavn, efternavn);
         this.brugernavn = brugernavn;
         this.kode = kode;
-        this.rolle = rolle;
     }
 
     public String getBrugernavn() {

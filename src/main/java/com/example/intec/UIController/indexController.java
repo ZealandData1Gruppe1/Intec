@@ -99,8 +99,10 @@ public class indexController {
 
     @GetMapping("/admin")
     public String admin(Model model) {
-
-
+        if (uc.getUserVerified().getBrugernavn().trim().length() == 0 || uc.getUserVerified().getBrugernavn() == null)
+        {
+            return "redirect:/login";
+        }
         return "admin";
     }
 
@@ -155,6 +157,10 @@ public class indexController {
     @GetMapping("/historik")
     public String udtraekData (Model model)
     {
+        if (uc.getUserVerified().getBrugernavn().trim().length() == 0 || null == uc.getUserVerified().getBrugernavn())
+        {
+            return "redirect:/login";
+        }
         return "historik";
     }
 
