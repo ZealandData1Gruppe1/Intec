@@ -6,6 +6,7 @@ import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
 
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +16,7 @@ public class DataController {
     private Connection connection;
     private Statement stmt;
     int locationID;
+    SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private DataController(String location) {
         connection = null;
         stmt = null;
@@ -280,7 +282,12 @@ public class DataController {
                 p.setFornavn(rs.getString("fname"));
                 p.setEfternavn(rs.getString("lname"));
                 r.setRegistreringPerson(p);
-                r.setTjekinTidspunkt(rs.getDate("checkin"));
+                String date = rs.getString("checkin");
+                try {
+                    r.setTjekinTidspunkt(formater.parse(date));
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
                 r.setLokation(rs.getString("locationname"));
                 r.setId(rs.getInt("id"));
                 registreringsListen.add(r);
@@ -296,6 +303,7 @@ public class DataController {
 
     public ArrayList<Registrering> getregistrationWithID(int idnr)
     {
+
         ArrayList<Registrering> registreringsListen = new ArrayList<>();
         try{
             String sql = "Select person.idnr, person.fname, person.lname, company.companyname, location.locationname, registration.id, registration.checkin \n" +
@@ -316,7 +324,12 @@ public class DataController {
                 p.setFornavn(rs.getString("fname"));
                 p.setEfternavn(rs.getString("lname"));
                 r.setRegistreringPerson(p);
-                r.setTjekinTidspunkt(rs.getDate("checkin"));
+                String date = rs.getString("checkin");
+                    try {
+                        r.setTjekinTidspunkt(formater.parse(date));
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
                 r.setLokation(rs.getString("locationname"));
                 r.setId(rs.getInt("id"));
                 registreringsListen.add(r);
@@ -351,7 +364,12 @@ public class DataController {
                 p.setFornavn(rs.getString("fname"));
                 p.setEfternavn(rs.getString("lname"));
                 r.setRegistreringPerson(p);
-                r.setTjekinTidspunkt(rs.getDate("checkin"));
+                String date = rs.getString("checkin");
+                try {
+                    r.setTjekinTidspunkt(formater.parse(date));
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
                 r.setLokation(rs.getString("locationname"));
                 r.setId(rs.getInt("id"));
                 registreringsListen.add(r);

@@ -202,7 +202,6 @@ public class indexController {
             }
         }
         historikListen = uc.getHistoryData(idnr,start,slut);
-        System.out.println(historikListen);
         return "redirect:/historik";
     }
 
