@@ -210,11 +210,13 @@ public class DataController {
 
     public void sletOplysningerOmPerson(int idnr){
         try{
-            String sql1 = "Delete from registration where pid = '" + idnr +"'";
-            String sql2 = "Delete from person where idnr = '" + idnr+"'";
+            String sql1 = "DELETE from log where loginid ='" + idnr + "'";
+            String sql2 = "Delete from registration where pid = '" + idnr +"'";
+            String sql3 = "Delete from person where idnr = '" + idnr+"'";
             Statement stmt = connection.createStatement();
             stmt.execute(sql1);
             stmt.execute(sql2);
+            stmt.execute(sql3);
             stmt.close();
     } catch (SQLException e) {
         throw new RuntimeException(e);
@@ -225,7 +227,7 @@ public class DataController {
     public void insertLogin(Login l) {
 
             try{
-                String sql = "insert into login (username, password, role,pid) VALUES ('"+l.getBrugernavn()+"', ' " +l.getKode() +"',' " +l.getRolle()+"',"+l.getIdNR()+")";
+                String sql = "insert into login (username, password, role,pid) VALUES ('"+l.getBrugernavn()+"','" +l.getKode() +"','" +l.getRolle()+"',"+l.getIdNR()+")";
                 Statement stmt = connection.createStatement();
                 stmt.execute(sql);
                 stmt.close();

@@ -126,9 +126,7 @@ public class Usecase {
         return true;
     }
     public Boolean sletOplysningerForID(int idnr){
-        Person p = new Person();
         db.sletOplysningerOmPerson(idnr);
-        p.setIdNR(idnr);
         return findesPerson(idnr);
     }
     public void sletGamleOplysninger()
