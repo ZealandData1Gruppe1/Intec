@@ -22,6 +22,7 @@ public class indexController {
     Usecase uc = new Usecase();
 
     ArrayList<Firma> firmaListen;
+    ArrayList<Registrering> historikListen;
 
     @GetMapping("/registrer")
     public String registrer(Model model) {
@@ -165,14 +166,25 @@ public class indexController {
         {
             return "redirect:/login";
         }
+        String placeholder = "yyyy-mm-dd hh:mm:ss";
+        model.addAttribute("placeholder", placeholder);
+
+        String idnr = "";
+        model.addAttribute("idnr", idnr);
+
+        String startdato = "";
+        model.addAttribute("startdato", startdato);
+
+        String slutdato = "";
+        model.addAttribute("slutdato", slutdato);
+        model.addAttribute("historikListen", historikListen);
 
         return "historik";
     }
 
     @PostMapping("/historik")
-    public String getDataPost(@ModelAttribute ("registrationList")ArrayList<Registrering> registrationlist,@ModelAttribute("idnr") int idnr,@ModelAttribute("startdato") String startdato,@ModelAttribute("slutdato") String slutdato)
+    public String getDataPost(@ModelAttribute("idnr") int idnr,@ModelAttribute("startdato") String startdato,@ModelAttribute("slutdato") String slutdato)
     {
-
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date start = null;
         Date slut = null;
@@ -189,10 +201,9 @@ public class indexController {
                 throw new RuntimeException(e);
             }
         }
-
-
-        registrationlist = uc.getHistoryData(idnr,start,slut);
-        return "index";
+        historikListen = uc.getHistoryData(idnr,start,slut);
+        System.out.println(historikListen);
+        return "redirect:/historik";
     }
 
     @GetMapping("/fjernFirma")

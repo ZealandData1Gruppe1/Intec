@@ -13,12 +13,67 @@
 
 <div class="container">
 
+  <div class="formtext">
   <img src ="usa.jpg">
   <input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
   <img src ="dk.jpeg" >
 
 
+      <form action="http://localhost:8080/historik" method="post">
+  <div class = "content contentDanish">
+    <th: for="idnr" >Kørekort-eller Pasnummer</th:>
+  </div>
+  <div class = "content contentEnglish">
+    <th: for="idnr" >Drivers  og Passportnumber</th:>
+  </div>
+  <input type="text" th:value="${idnr}" name="idnr"/>
 
+  <div class = "content contentDanish">
+    <th: for="startdato" >Start dato</th:>
+  </div>
+  <div class = "content contentEnglish">
+    <th: for="startdato" >Start date</th:>
+  </div>
+  <input type="text" th:value="${startdato}" name="startdato" th:placeholder="${placeholder}"/>
 
+  <div class = "content contentDanish">
+    <th: for="slutdato" >Slut dato</th:>
+  </div>
+  <div class = "content contentEnglish">
+    <th: for="slutdato" >End date</th:>
+  </div>
+  <input type="text" th:value="${startdato}" name="slutdato" th:placeholder="${placeholder}"/>
+
+      <div class ="center">
+        <input type="submit" value="Accept">
+      </div>
+    </form>
+
+  </div>
+  <div class ="center">
+  <table>
+    <tr>
+      <th>Registrering ID</th>
+      <th>ID Nummer</th>
+      <th>Fornavn</th>
+      <th>Efternavn</th>
+      <th>Firmanavn</th>
+      <th>Lokation</th>
+      <th>Tidspunkt</th>
+
+    </tr>
+
+    <tr th:each="Registrering : ${historikListen}">
+      <td th:text="${Registrering.id}"></td>
+      <td th:text="${Registrering.registreringPerson.idNR}"></td>
+      <td th:text="${Registrering.registreringPerson.fornavn}"></td>
+      <td th:text="${Registrering.registreringPerson.efternavn}"></td>
+      <td th:text="${Registrering.firma.firmanavn}"></td>
+      <td th:text="${Registrering.lokation}"></td>
+      <td th:text="${Registrering.tjekinTidspunkt}"></td>
+    </tr>
+
+  </table>
+</div>
 </div>
 </body>
