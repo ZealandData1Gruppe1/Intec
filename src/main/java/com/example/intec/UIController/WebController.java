@@ -226,6 +226,7 @@ public class WebController {
                 valgtFirma = firmaListen.get(i);
             }
         }
+        uc.removeCompanyFromList(valgtFirma.getFirmanavn());
 
     }
     @GetMapping("/GDPRslet")
