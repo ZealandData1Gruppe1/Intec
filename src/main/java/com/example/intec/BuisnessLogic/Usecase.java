@@ -170,19 +170,28 @@ public class Usecase {
 
     public ArrayList<Registrering> getHistoryData(int idnr, Date startdato, Date slutdato)
     {
+        String searchID = "ID: " + idnr;
+        String searchStart = "Start: " +startdato;
+        String searchEnd = "End: " +slutdato;
+
+
         if (idnr == 0)
         {
+
+            db.LogDatabaseSøgning(userVerified.getIdNR(), searchID+searchStart+searchEnd);
             return db.getregistrationWithTime(startdato,slutdato);
         }
 
         if(startdato == null || slutdato == null)
         {
+            db.LogDatabaseSøgning(userVerified.getIdNR(), searchID+searchStart+searchEnd);
             return  db.getregistrationWithID(idnr); 
         }
-
+        db.LogDatabaseSøgning(userVerified.getIdNR(), searchID+searchStart+searchEnd);
         return db.getRegistrationIDTime(idnr,startdato,slutdato);
-
     }
+
+
 }
 
 

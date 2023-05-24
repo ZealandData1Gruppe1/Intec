@@ -271,10 +271,6 @@ public class DataController {
                     "Inner join location on registration.locationid = location.id) " +
                     "Where idnr = "+idnr+" AND registration.checkin > '"+timeFormatter(startdato)+"' AND registration.checkin < '" +timeFormatter(slutdato)+"'";
 
-            Usecase uc = new Usecase();
-            int brugerId = uc.getUserVerified().getIdNR();
-            String brugerQuery = "Der søgt på startdato " + startdato + " og slutdato " + slutdato + " og IDnr: " + idnr;
-            LogDatabaseSøgning(brugerId,brugerQuery);
 
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -320,12 +316,6 @@ public class DataController {
                     "Inner join location on registration.locationid = location.id) " +
                     "Where idnr = "+idnr;
 
-
-           Usecase uc = new Usecase();
-            int brugerId = uc.getUserVerified().getIdNR();
-            String brugerQuery = "Der søgt på IDnr " + idnr;
-            LogDatabaseSøgning(brugerId,brugerQuery);
-
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
@@ -366,11 +356,6 @@ public class DataController {
                     "Inner join company on registration.cid = company.id) " +
                     "Inner join location on registration.locationid = location.id) " +
                     "Where registration.checkin > '"+timeFormatter(startdato)+"' AND registration.checkin < '" +timeFormatter(slutdato)+"'";
-
-           Usecase uc = new Usecase();
-            int brugerId = uc.getUserVerified().getIdNR();
-            String brugerQuery = "Der søgt på startdato " + startdato + " og slutdato " + slutdato;
-            LogDatabaseSøgning(brugerId,brugerQuery);
 
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
