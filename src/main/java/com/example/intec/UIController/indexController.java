@@ -183,8 +183,11 @@ public class indexController {
     }
 
     @PostMapping("/historik")
-    public String getDataPost(@ModelAttribute("idnr") int idnr,@ModelAttribute("startdato") String startdato,@ModelAttribute("slutdato") String slutdato)
+    public String getDataPost(@ModelAttribute("idnr") String idnr,@ModelAttribute("startdato") String startdato,@ModelAttribute("slutdato") String slutdato)
     {
+        if (idnr.equals("")){
+            idnr = "0";
+    }
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date start = null;
         Date slut = null;
@@ -201,7 +204,8 @@ public class indexController {
                 throw new RuntimeException(e);
             }
         }
-        historikListen = uc.getHistoryData(idnr,start,slut);
+        int id = Integer.parseInt(idnr);
+        historikListen = uc.getHistoryData(id,start,slut);
         return "redirect:/historik";
     }
 
