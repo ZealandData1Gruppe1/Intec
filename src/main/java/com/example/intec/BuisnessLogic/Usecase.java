@@ -14,14 +14,13 @@ import static com.example.intec.DBController.DataController.getInstance;
 
 public class Usecase {
 
-    Login userVerified = new Login(1,"","","","");
-    String location = "";
-    DataController db;
+    private Login userVerified = new Login(0,"","","","");
+    private String location = "";
+    private DataController db;
 
     public Usecase() {
         this.db = getInstance(setLocation());
     }
-
 
 
     public void registrerPerson(Person p, Firma f, String otherfirma) {
@@ -156,7 +155,7 @@ public class Usecase {
           db.opretFirma(navn);
         }
         Firma f =db.hentFirma(navn);
-        db.updateCopanyOnlist(f);
+        db.updateCompanyOnlist(f);
     }
     public void removeCompanyFromList(String navn)
     {
@@ -178,16 +177,16 @@ public class Usecase {
         if (idnr == 0)
         {
 
-            db.LogDatabaseSøgning(userVerified.getIdNR(), searchID+searchStart+searchEnd);
+            db.logDatabaseSoegning(userVerified.getIdNR(), searchID+searchStart+searchEnd);
             return db.getregistrationWithTime(startdato,slutdato);
         }
 
         if(startdato == null || slutdato == null)
         {
-            db.LogDatabaseSøgning(userVerified.getIdNR(), searchID+searchStart+searchEnd);
+            db.logDatabaseSoegning(userVerified.getIdNR(), searchID+searchStart+searchEnd);
             return  db.getregistrationWithID(idnr); 
         }
-        db.LogDatabaseSøgning(userVerified.getIdNR(), searchID+searchStart+searchEnd);
+        db.logDatabaseSoegning(userVerified.getIdNR(), searchID+searchStart+searchEnd);
         return db.getRegistrationIDTime(idnr,startdato,slutdato);
     }
 

@@ -1,6 +1,5 @@
 package com.example.intec.DBController;
 
-import com.example.intec.BuisnessLogic.Usecase;
 import com.example.intec.Entititer.*;
 
 import java.sql.*;
@@ -15,8 +14,8 @@ public class DataController {
     private Statement stmt;
     int locationID;
 
-
     SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     private DataController(String location) {
         connection = null;
         stmt = null;
@@ -237,7 +236,7 @@ public class DataController {
                 throw new RuntimeException(e);
             }
     }
-    public void updateCopanyOnlist(Firma f)
+    public void updateCompanyOnlist(Firma f)
     {
         try{
             String sql = "UPDATE company set onlist = 1 WHERE id = '"+f.getID()+"'";
@@ -302,8 +301,6 @@ public class DataController {
 
     }
 
-
-
     public ArrayList<Registrering> getregistrationWithID(int idnr)
     {
 
@@ -345,7 +342,6 @@ public class DataController {
         return registreringsListen;
     }
 
-
     public ArrayList<Registrering> getregistrationWithTime(Date startdato, Date slutdato)
     {
         ArrayList<Registrering> registreringsListen = new ArrayList<>();
@@ -386,7 +382,7 @@ public class DataController {
         return registreringsListen;
     }
 
-    public void LogDatabaseSøgning(int loginid, String query){
+    public void logDatabaseSoegning(int loginid, String query){
         Date d = new Date();
         String dato = timeFormatter(d);
 

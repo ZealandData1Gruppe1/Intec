@@ -8,7 +8,6 @@ public class Login extends Person{
 
     private Rolle rolle;
 
-
     public Login(){
 
     }

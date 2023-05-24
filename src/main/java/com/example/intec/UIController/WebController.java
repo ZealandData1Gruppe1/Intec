@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Controller
-public class indexController {
+public class WebController {
 
-    Usecase uc = new Usecase();
+    private Usecase uc = new Usecase();
 
-    ArrayList<Firma> firmaListen;
-    ArrayList<Registrering> historikListen;
+    private ArrayList<Firma> firmaListen;
+    private ArrayList<Registrering> historikListen;
 
     @GetMapping("/registrer")
     public String registrer(Model model) {
@@ -77,15 +77,13 @@ public class indexController {
             return "registrer";
     }
 
-
     @GetMapping("/login")
     public String visAdminLogin(Model model) {
         Login login = new Login();
         model.addAttribute("login", login);
         return "login";
     }
-
-
+    
     @PostMapping("/login")
     public String loginPost(@ModelAttribute("login") Login login, Model model) {
         if(uc.adminLogin(login).equalsIgnoreCase("Admin")) {
@@ -100,7 +98,6 @@ public class indexController {
             return "login";
         }
     }
-
 
     @GetMapping("/admin")
     public String admin(Model model) {
