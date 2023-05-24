@@ -180,7 +180,7 @@ public class Usecase {
             return  db.getregistrationWithID(idnr); 
         }
 
-        return db.getregistrationIDTime(idnr,startdato,slutdato);
+        return db.getRegistrationIDTime(idnr,startdato,slutdato);
 
     }
 }

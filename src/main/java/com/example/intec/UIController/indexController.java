@@ -46,7 +46,7 @@ public class indexController {
         return "index";
     }
     @PostMapping("/registrer")
-    public String registerPost(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn, Model model, @ModelAttribute("valgtfirma") Firma firma) {
+    public String registrerPost(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn, Model model, @ModelAttribute("valgtfirma") Firma firma) {
         Firma valgtFirma = new Firma();
         for (int i = 0; i < firmaListen.size(); i++)
         {
@@ -183,7 +183,7 @@ public class indexController {
     }
 
     @PostMapping("/historik")
-    public String getDataPost(@ModelAttribute("idnr") String idnr,@ModelAttribute("startdato") String startdato,@ModelAttribute("slutdato") String slutdato)
+    public String visHistorik(@ModelAttribute("idnr") String idnr,@ModelAttribute("startdato") String startdato,@ModelAttribute("slutdato") String slutdato)
     {
         if (idnr.equals("")){
             idnr = "0";

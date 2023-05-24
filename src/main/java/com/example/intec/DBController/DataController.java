@@ -260,7 +260,7 @@ public class DataController {
         }
     }
 
-    public ArrayList<Registrering> getregistrationIDTime(int idnr, Date startdato, Date slutdato)
+    public ArrayList<Registrering> getRegistrationIDTime(int idnr, Date startdato, Date slutdato)
     {
         ArrayList<Registrering> registreringsListen = new ArrayList<>();
         try{
