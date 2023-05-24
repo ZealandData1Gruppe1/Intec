@@ -170,9 +170,9 @@ public class Usecase {
 
     public ArrayList<Registrering> getHistoryData(int idnr, Date startdato, Date slutdato)
     {
-        String searchID = "ID: " + idnr;
-        String searchStart = "Start: " +startdato;
-        String searchEnd = "End: " +slutdato;
+        String searchID = "Der er søgt på IDnr : " + idnr;
+        String searchStart = " Der er søgt på startdato : " +startdato;
+        String searchEnd = " Der er søgt på slutdato : " +slutdato;
 
 
         if (idnr == 0)
