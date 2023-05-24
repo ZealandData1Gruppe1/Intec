@@ -1,9 +1,7 @@
 package com.example.intec.DBController;
 
-import com.example.intec.Entititer.Login;
-import com.example.intec.Entititer.Firma;
-import com.example.intec.Entititer.Person;
-import com.example.intec.Entititer.Registrering;
+import com.example.intec.BuisnessLogic.Usecase;
+import com.example.intec.Entititer.*;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -16,6 +14,8 @@ public class DataController {
     private Connection connection;
     private Statement stmt;
     int locationID;
+
+
     SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private DataController(String location) {
         connection = null;
@@ -270,6 +270,12 @@ public class DataController {
                     "Inner join company on registration.cid = company.id) " +
                     "Inner join location on registration.locationid = location.id) " +
                     "Where idnr = "+idnr+" AND registration.checkin > '"+timeFormatter(startdato)+"' AND registration.checkin < '" +timeFormatter(slutdato)+"'";
+
+            Usecase uc = new Usecase();
+            int brugerId = uc.getUserVerified().getIdNR();
+            String brugerQuery = "Der søgt på startdato " + startdato + " og slutdato " + slutdato + " og IDnr: " + idnr;
+            LogDatabaseSøgning(brugerId,brugerQuery);
+
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
@@ -297,6 +303,7 @@ public class DataController {
             throw new RuntimeException(e);
         }
         return registreringsListen;
+
     }
 
 
@@ -312,6 +319,13 @@ public class DataController {
                     "Inner join company on registration.cid = company.id) " +
                     "Inner join location on registration.locationid = location.id) " +
                     "Where idnr = "+idnr;
+
+
+           Usecase uc = new Usecase();
+            int brugerId = uc.getUserVerified().getIdNR();
+            String brugerQuery = "Der søgt på IDnr " + idnr;
+            LogDatabaseSøgning(brugerId,brugerQuery);
+
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
@@ -352,6 +366,12 @@ public class DataController {
                     "Inner join company on registration.cid = company.id) " +
                     "Inner join location on registration.locationid = location.id) " +
                     "Where registration.checkin > '"+timeFormatter(startdato)+"' AND registration.checkin < '" +timeFormatter(slutdato)+"'";
+
+           Usecase uc = new Usecase();
+            int brugerId = uc.getUserVerified().getIdNR();
+            String brugerQuery = "Der søgt på startdato " + startdato + " og slutdato " + slutdato;
+            LogDatabaseSøgning(brugerId,brugerQuery);
+
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
@@ -379,5 +399,19 @@ public class DataController {
             throw new RuntimeException(e);
         }
         return registreringsListen;
+    }
+
+    public void LogDatabaseSøgning(int loginid, String query){
+        Date d = new Date();
+        String dato = timeFormatter(d);
+
+        try{
+            String sql = "insert into log (loginid, datetime, search) VALUES ("+loginid+" ,'"+dato+"','"+query+"')";
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
