@@ -229,6 +229,7 @@ public class indexController {
                 valgtFirma = firmaListen.get(i);
             }
         }
+        uc.removeCompanyFromList(valgtFirma.getFirmanavn());
 
     }
     @GetMapping("/GDPRslet")
