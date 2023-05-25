@@ -38,11 +38,13 @@
           <text class = "overskrift">Enter the ID number for the person to be deleted </text>
         </div>
       </div>
-      <div class="bekræftSletKnap">
-      <input type="checkbox" id="GDPRbox" th:attr="data-target='#myButton'"/>
 
-        <img id ="advarselBillede" src="gultskilt.png"><text> Du er nu ved at slette person oplysninger. Sørg for at du overholde gældende lovgivning! </text>
+      <div class="bekræftSletKnap">
+      <input type="checkbox" id="advarselsBox" th:attr="data-target='#myButton'"/>
+        <img id ="advarselBillede" src="gultskilt.png">
+        <text> Du er nu ved at slette person oplysninger. Sørg for at du overholde gældende lovgivning! </text>
       </div>
+
       <div class = "content contentDanish">
 
       <div class = "content contentDanish">
@@ -58,7 +60,7 @@
       </div>
         <script th:inline="javascript">
           $(document).ready(function() {
-            $('#GDPRbox').click(function() {
+            $('#advarselsBox').click(function() {
               var isChecked = $(this).prop('checked');
               $('#myButton').prop('disabled', !isChecked);
             });

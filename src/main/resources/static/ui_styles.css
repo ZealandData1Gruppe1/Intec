@@ -281,8 +281,16 @@ margin-bottom: 50px;
 }
 .bekræftSletKnap{
 	float: left;
+	margin-bottom: 10px;
 }
 #advarselBillede{
 	width:1em;
 	height:1em;
+}
+#advarselsBox
+{
+	height: 20px;
+	width: 20px;
+	background-color: #eee;
+	float:left;
 }
