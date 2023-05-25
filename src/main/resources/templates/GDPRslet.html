@@ -4,6 +4,8 @@
   <link rel="stylesheet" href="ui_styles.css">
   <meta charset="UTF-8">
   <title>GDPR slet</title>
+  <title>Opret login</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -38,6 +40,14 @@
         </div>
       </div>
 
+      <div class="bekræftSletKnap">
+      <input type="checkbox" id="advarselsBox" th:attr="data-target='#myButton'"/>
+        <img id ="advarselBillede" src="gultskilt.png">
+        <text> Du er nu ved at slette person oplysninger. Sørg for at du overholde gældende lovgivning! </text>
+      </div>
+
+      <div class = "content contentDanish">
+
       <div class = "content contentDanish">
         <th: for="idnr" >ID nummer på personen</th:>
       </div>
@@ -47,12 +57,18 @@
       <input type="text" th:value="${idnr}" name="idnr" />
 
       <div class ="center">
-          <input type="submit" value="Accept">
+        <button id="myButton" type="submit" disabled="disabled">Slet</button>
       </div>
+        <script th:inline="javascript">
+          $(document).ready(function() {
+            $('#advarselsBox').click(function() {
+              var isChecked = $(this).prop('checked');
+              $('#myButton').prop('disabled', !isChecked);
+            });
+          });
+        </script>
 
-
-
-
+      </div>
 
     </form>
   </div>
