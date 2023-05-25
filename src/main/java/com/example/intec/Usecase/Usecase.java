@@ -1,4 +1,4 @@
-package com.example.intec.BuisnessLogic;
+package com.example.intec.Usecase;
 
 import com.example.intec.DBController.DataController;
 import com.example.intec.Entititer.Login;

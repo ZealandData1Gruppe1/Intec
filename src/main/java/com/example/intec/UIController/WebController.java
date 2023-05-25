@@ -1,6 +1,6 @@
 package com.example.intec.UIController;
 
-import com.example.intec.BuisnessLogic.Usecase;
+import com.example.intec.Usecase.Usecase;
 import com.example.intec.Entititer.Login;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
@@ -33,6 +33,8 @@ public class WebController {
         firmaListen = uc.hentAlleTransportFirma();
         Firma tom = new Firma();
         String otherFirmanavn = "";
+        String placeholder = "Udfyld hvis firma ikke er på listen / Fill out if company is not on the list ";
+        model.addAttribute("placeholder", placeholder);
         model.addAttribute("otherFirmanavn", otherFirmanavn);
         model.addAttribute("firmaliste", firmaListen);
         model.addAttribute("person", person);
