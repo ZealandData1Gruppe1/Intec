@@ -52,8 +52,10 @@ public class Usecase {
                 db.opretPerson(p);
                 person = db.hentPerson(p.getIdNR());
             }
+            if (p.getFornavn().equals(person.getFornavn()) == false || p.getEfternavn().equals(person.getEfternavn()) == false){
+                db.updatePerson(p);
+            }
             person = p;
-            //Her skal db.updatePerson kaldes??
         Date nu = new Date();
         Registrering r = new Registrering(person,firma, nu, location);
         db.insertRegistration(r);

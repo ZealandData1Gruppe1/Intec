@@ -396,11 +396,9 @@ public class DataController {
         }
     }
 
-    public void updatePerson(Person P){
-        Date d = new Date();
-        String dato = timeFormatter(d);
+    public void updatePerson(Person p){
         try{
-            String sql = "";
+            String sql = "UPDATE person set fname = '"+p.getFornavn() +"', lname = '"+p.getEfternavn()+"' WHERE idnr = '"+p.getIdNR()+"'";
             Statement stmt = connection.createStatement();
             stmt.execute(sql);
             stmt.close();
