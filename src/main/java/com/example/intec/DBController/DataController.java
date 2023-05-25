@@ -395,4 +395,17 @@ public class DataController {
             throw new RuntimeException(e);
         }
     }
+
+    public void updatePerson(Person P){
+        Date d = new Date();
+        String dato = timeFormatter(d);
+        try{
+            String sql = "";
+            Statement stmt = connection.createStatement();
+            stmt.execute(sql);
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

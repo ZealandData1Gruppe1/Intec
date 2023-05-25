@@ -43,6 +43,7 @@ public class Usecase {
                 person = db.hentPerson(p.getIdNR());
             }
             person = p;
+            //Her skal db.updatePerson kaldes??
         Date nu = new Date();
         Registrering r = new Registrering(person,firma, nu, location);
         db.insertRegistration(r);

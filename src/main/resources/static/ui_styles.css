@@ -266,6 +266,7 @@ margin-bottom: 50px;
 .styled-table tbody tr:last-of-type {
 	border-bottom: 2px solid #00008b;
 }
+
 .container .registerKnap{
 	display: none;
 
@@ -276,6 +277,13 @@ margin-bottom: 50px;
 .check:checked ~ .registerKnap.contentDanish{
 	display: none;
 }
-.check:checked ~ .registerKnap.contentEnglish{
+.check:checked ~ .registerKnap.contentEnglish {
 	display: table;
+}
+
+.underrubrik {
+	padding-top: 20px;
+	display: flex;
+	justify-content: center;
+	color: grey;
 }
