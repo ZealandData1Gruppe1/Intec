@@ -3,7 +3,7 @@
 <head>
   <link rel="stylesheet" href="ui_styles.css">
   <meta charset="UTF-8">
-  <title>Admin side</title>
+  <title>Data</title>
 </head>
 <body>
 
@@ -19,6 +19,27 @@
       <img src ="usa.jpg">
       <input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
       <img src ="dk.jpeg" >
+
+      <div class = "content contentDanish">
+        <div class ="center">
+          <text class = "overskrift"> Søgning af data</text>
+        </div>
+        <div class = "underrubrik"> Indtast enten et id nummer, og/eller en startdato og slutdato</div>
+      </div>
+      <div class = "content contentEnglish">
+        <div class ="center">
+          <text class = "overskrift">Search of data</text>
+        </div>
+        <div class = "underrubrik"> Type in either an id number, and/or a startdate and a end date</div>
+      </div>
+
+
+      <div class = "content contentDanish">
+        <a href="http://localhost:8080/">Til forside</a>
+      </div>
+      <div class = "content contentEnglish">
+        <a href="http://localhost:8080/">To Frontpage</a>
+      </div>
 
       <div class = "content contentDanish">
          <th: for="idnr" >Kørekort-eller Pasnummer</th:>

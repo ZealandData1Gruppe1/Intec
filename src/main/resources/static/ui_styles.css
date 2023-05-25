@@ -248,3 +248,10 @@ margin-bottom: 50px;
 .styled-table tbody tr:last-of-type {
 	border-bottom: 2px solid #00008b;
 }
+
+.underrubrik {
+	padding-top: 20px;
+	display: flex;
+	justify-content: center;
+	color: grey;
+}
