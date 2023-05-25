@@ -279,3 +279,10 @@ margin-bottom: 50px;
 .check:checked ~ .registerKnap.contentEnglish{
 	display: table;
 }
+.bekræftSletKnap{
+	float: left;
+}
+#advarselBillede{
+	width:1em;
+	height:1em;
+}
