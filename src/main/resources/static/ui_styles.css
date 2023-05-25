@@ -306,7 +306,7 @@ margin-bottom: 50px;
 
 .bekræftSletKnap{
 	float: left;
-	margin-bottom: 10px;
+	padding-top: 20px;
 }
 #advarselBillede{
 	width:1em;
