@@ -42,9 +42,7 @@ public class WebController {
     }
     @GetMapping("/")
     public String visForside(Model model) {
-        uc.setLocation();
-        Boolean language = uc.shouldDisplayEnglish();
-        shouldDisplayEnglish = language;
+        shouldDisplayEnglish = uc.getDisplayEnglish();
         model.addAttribute("language",shouldDisplayEnglish);
         return "index";
     }
@@ -102,6 +100,7 @@ public class WebController {
     
     @PostMapping("/login")
     public String loginPost(@ModelAttribute("login") Login login, Model model) {
+        model.addAttribute("language",shouldDisplayEnglish);
         if(uc.adminLogin(login).equalsIgnoreCase("Admin")) {
             return "admin";
         }
@@ -238,9 +237,8 @@ public class WebController {
     }
 
     @PostMapping("/fjernFirma")
-    public void removeCompanyPost(Model model, @ModelAttribute("valgtfirma") Firma firma)
+    public String removeCompanyPost(Model model, @ModelAttribute("valgtfirma") Firma firma)
     {
-
         Firma valgtFirma = new Firma();
         for (int i = 0; i < firmaListen.size(); i++)
         {
@@ -251,6 +249,7 @@ public class WebController {
         }
         uc.removeCompanyFromList(valgtFirma.getFirmanavn());
 
+        return"admin";
     }
     @GetMapping("/GDPRslet")
     public String removePersonGet(Model model)
