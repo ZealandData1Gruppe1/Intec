@@ -18,10 +18,20 @@ public class Usecase {
     private String location = "";
     private DataController db;
 
+    private boolean displayEnglish;
+
     public Usecase() {
         this.db = getInstance(setLocation());
+        setLocation();
     }
 
+    public boolean getDisplayEnglish() {
+        return displayEnglish;
+    }
+
+    public void setDisplayEnglish(boolean displayEnglish) {
+        this.displayEnglish = displayEnglish;
+    }
 
     public void registrerPerson(Person p, Firma f, String otherfirma) {
         Person person = new Person();
