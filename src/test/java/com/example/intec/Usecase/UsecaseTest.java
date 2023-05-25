@@ -1,9 +1,6 @@
-package com.example.intec.BuisnessLogic;
+package com.example.intec.Usecase;
 
-import com.example.intec.DBController.DataController;
 import com.example.intec.Entititer.Firma;
-import com.example.intec.Entititer.Person;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
