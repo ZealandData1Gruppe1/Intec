@@ -3,6 +3,7 @@ body{
 	flex-direction: column;
 	min-height: 100vh;
 	background: white;
+	overflow: hidden;
 }
 
 .container .item:nth-child(2){ /*Only second item padding and center text*/
@@ -36,6 +37,23 @@ a{
 	border-radius: 40px;
     background: linear-gradient(grey,#00008B);
 }
+.adminKnap {
+	position: absolute;
+	bottom: 8px;
+	right: 16px;
+	font-size: 18px;
+	display: inline-block;
+	padding: 10px 10px;
+	margin-bottom: 15px;
+	font-weight:bold;
+	color: #fff;
+	text-decoration: none;
+	font-family: sans-serif;
+	letter-spacing: 2px;
+	border-radius: 40px;
+	background: linear-gradient(grey,#00008B);
+}
+
 
 .video{
  display: block;
@@ -247,4 +265,17 @@ margin-bottom: 50px;
 
 .styled-table tbody tr:last-of-type {
 	border-bottom: 2px solid #00008b;
+}
+.container .registerKnap{
+	display: none;
+
+}
+.container .registerKnap.contentDanish{
+	display:table;
+}
+.check:checked ~ .registerKnap.contentDanish{
+	display: none;
+}
+.check:checked ~ .registerKnap.contentEnglish{
+	display: table;
 }
