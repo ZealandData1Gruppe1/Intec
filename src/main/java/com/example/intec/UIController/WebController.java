@@ -5,6 +5,7 @@ import com.example.intec.Entititer.Login;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,8 @@ public class WebController {
     private ArrayList<Firma> firmaListen;
     private ArrayList<Registrering> historikListen;
 
+    boolean shouldDisplayEnglish = false;
+
     @GetMapping("/registrer")
     public String registrer(Model model) {
         Person person = new Person();
@@ -34,17 +37,29 @@ public class WebController {
         model.addAttribute("firmaliste", firmaListen);
         model.addAttribute("person", person);
         model.addAttribute("valgtfirma", tom);
-
+        model.addAttribute("language",shouldDisplayEnglish);
         return "registrer";
-
     }
     @GetMapping("/")
     public String visForside(Model model) {
         uc.setLocation();
         Boolean language = uc.shouldDisplayEnglish();
-        model.addAttribute("language",language);
+        shouldDisplayEnglish = language;
+        model.addAttribute("language",shouldDisplayEnglish);
         return "index";
     }
+    @PostMapping("/")
+    public String visForsidePost(Model Model, @ModelAttribute("mycheckbox") String mycheckbox, HttpServletRequest request)
+    {
+        String lang = (request.getParameter("mycheckbox"));
+        if(lang != null && !lang.trim().isEmpty())
+        {
+            shouldDisplayEnglish = true;
+        }
+
+        return "index";
+    }
+
     @PostMapping("/registrer")
     public String registrerPost(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn, Model model, @ModelAttribute("valgtfirma") Firma firma) {
         Firma valgtFirma = new Firma();
@@ -81,6 +96,7 @@ public class WebController {
     public String visAdminLogin(Model model) {
         Login login = new Login();
         model.addAttribute("login", login);
+        model.addAttribute("language",shouldDisplayEnglish);
         return "login";
     }
     
@@ -100,10 +116,14 @@ public class WebController {
     }
 
     @GetMapping("/admin")
-    public String admin(Model model) {
+    public String admin(Model model)
+    {
+        model.addAttribute("language",shouldDisplayEnglish);
         if (uc.getUserVerified().getBrugernavn().trim().length() == 0 || uc.getUserVerified().getBrugernavn() == null)
         {
+            model.addAttribute("language",shouldDisplayEnglish);
             return "redirect:/login";
+
         }
         return "admin";
     }
@@ -111,9 +131,8 @@ public class WebController {
     @GetMapping("/opretLogin")
     public String opretLogin(Model model) {
         Login login = new Login();
-        boolean language = uc.shouldDisplayEnglish();
         model.addAttribute("login", login);
-        model.addAttribute("language",language);
+        model.addAttribute("language",shouldDisplayEnglish);
         return "opretLogin";
     }
 
@@ -136,6 +155,7 @@ public class WebController {
     public String opretFirma(Model model){
         String firma = "";
         model.addAttribute("firma", firma);
+        model.addAttribute("language",shouldDisplayEnglish);
 
         return "opretFirma";
     }
@@ -153,12 +173,14 @@ public class WebController {
 
         String dataSlettet = "";
         model.addAttribute("dataSlettet", dataSlettet);
+
         return "admin";
     }
 
     @GetMapping("/historik")
     public String udtraekData (Model model)
     {
+        model.addAttribute("language",shouldDisplayEnglish);
         if (uc.getUserVerified().getBrugernavn().trim().length() == 0 || null == uc.getUserVerified().getBrugernavn())
         {
             return "redirect:/login";
@@ -209,6 +231,7 @@ public class WebController {
     @GetMapping("/fjernFirma")
     public String removeCompanyGet(Model model)
     {
+        model.addAttribute("language",shouldDisplayEnglish);
         firmaListen = uc.hentAlleTransportFirma();
         model.addAttribute("firmaliste", firmaListen);
         return "fjernFirma";
@@ -236,6 +259,7 @@ public class WebController {
         String idnr = "";
         model.addAttribute("idnr", idnr);
         model.addAttribute("firmaliste", firmaListen);
+        model.addAttribute("language",shouldDisplayEnglish);
         return "GDPRslet";
     }
 

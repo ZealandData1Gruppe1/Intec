@@ -287,3 +287,19 @@ margin-bottom: 50px;
 	justify-content: center;
 	color: grey;
 }
+[type=submit].gemSprog{
+	float:right;
+
+	width: 150px;
+	background: linear-gradient(grey,#00008B);
+	color: #fff;
+	padding: 5px 5px 5px 5px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 18px;
+	font-family: sans-serif;
+	letter-spacing: 2px;
+	text-decoration: none;
+}

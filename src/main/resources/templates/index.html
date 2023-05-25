@@ -13,12 +13,16 @@
     </div>
 </div>
 </header>
+
+
+
 <div class="container">
 
-        <img src ="usa.jpg">
+    <form action="http://localhost:8080/" method="post" th:object="${language}">
+         <img src ="usa.jpg">
         <input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
         <img src ="dk.jpeg">
-
+        <input type="submit" class="gemSprog" value="Accept">
     <div class = "content contentDanish">
         <div class = "center">
             <a href="http://localhost:8080/registrer" class = "indexknap">Registrer besøg</a>
