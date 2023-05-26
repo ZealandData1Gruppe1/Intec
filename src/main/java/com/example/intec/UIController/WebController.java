@@ -315,16 +315,15 @@ public class WebController {
     }
     @GetMapping("/download")
     public ResponseEntity<byte[]> downloadImage(@ModelAttribute("imageID") String imageID) throws IOException, SQLException {
-        // Call a method to retrieve or generate the image bytes
         byte[] imageBytes = uc.downloadImage(Integer.parseInt(imageID));
 
-        // Set the appropriate headers
+        String filename = "image" + imageID + ".jpg";
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
         headers.setContentLength(imageBytes.length);
-        headers.setContentDispositionFormData("attachment", "image.jpg");
+        headers.setContentDispositionFormData("attachment", filename);
 
-        // Create the ResponseEntity with the image data, headers, and status
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(imageBytes);
