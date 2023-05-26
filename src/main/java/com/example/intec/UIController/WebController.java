@@ -131,6 +131,12 @@ public class WebController {
 
     @GetMapping("/opretLogin")
     public String opretLogin(Model model) {
+        if (uc.getUserVerified().getBrugernavn().trim().length() == 0 || uc.getUserVerified().getBrugernavn() == null)
+        {
+            model.addAttribute("language",shouldDisplayEnglish);
+            return "redirect:/login";
+
+        }
         Login login = new Login();
         model.addAttribute("login", login);
         model.addAttribute("language",shouldDisplayEnglish);
@@ -154,6 +160,12 @@ public class WebController {
 
     @GetMapping("/opretFirma")
     public String opretFirma(Model model){
+        if (uc.getUserVerified().getBrugernavn().trim().length() == 0 || uc.getUserVerified().getBrugernavn() == null)
+        {
+            model.addAttribute("language",shouldDisplayEnglish);
+            return "redirect:/login";
+
+        }
         String firma = "";
         model.addAttribute("firma", firma);
         model.addAttribute("language",shouldDisplayEnglish);
@@ -170,6 +182,12 @@ public class WebController {
     @GetMapping("/slet")
     public String sletData (Model model)
     {
+        if (uc.getUserVerified().getBrugernavn().trim().length() == 0 || uc.getUserVerified().getBrugernavn() == null)
+        {
+            model.addAttribute("language",shouldDisplayEnglish);
+            return "redirect:/login";
+
+        }
         uc.sletGamleOplysninger();
 
         String dataSlettet = "";
@@ -232,6 +250,12 @@ public class WebController {
     @GetMapping("/fjernFirma")
     public String removeCompanyGet(Model model)
     {
+        if (uc.getUserVerified().getBrugernavn().trim().length() == 0 || uc.getUserVerified().getBrugernavn() == null)
+        {
+            model.addAttribute("language",shouldDisplayEnglish);
+            return "redirect:/login";
+
+        }
         model.addAttribute("language",shouldDisplayEnglish);
         firmaListen = uc.hentAlleTransportFirma();
         model.addAttribute("firmaliste", firmaListen);
@@ -256,6 +280,12 @@ public class WebController {
     @GetMapping("/GDPRslet")
     public String removePersonGet(Model model)
     {
+        if (uc.getUserVerified().getBrugernavn().trim().length() == 0 || uc.getUserVerified().getBrugernavn() == null)
+        {
+            model.addAttribute("language",shouldDisplayEnglish);
+            return "redirect:/login";
+
+        }
         firmaListen = uc.hentAlleTransportFirma();
         String idnr = "";
         model.addAttribute("idnr", idnr);

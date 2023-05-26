@@ -31,22 +31,32 @@
       <br>
       <div class = "content contentDanish">
         <div class ="center">
-          <text class = "overskrift"> Indtast ID nummer på den person der skal slettes</text>
+          <text class = "overskrift"> Slet Persondata</text>
         </div>
       </div>
       <div class = "content contentEnglish">
         <div class ="center">
-          <text class = "overskrift">Enter the ID number for the person to be deleted </text>
+          <text class = "overskrift">Delete Personal data </text>
         </div>
       </div>
 
+
+        <div class = "content contentDanish">
+        <text style="float:left"> Læs mere: </text> <div class="datatilsynet"><a href="https://www.datatilsynet.dk/hvad-siger-reglerne/grundlaeggende-begreber" title="Link til Datatilsynet grundlæggende begreber">Datatilsynet</a></div>
+        </div>
+        <div class = "content contentEnglish">
+          <text style="float:left"> Read More: </text> <div class="datatilsynet"><a href="https://www.datatilsynet.dk/hvad-siger-reglerne/grundlaeggende-begreber" title="Link til Datatilsynet grundlæggende begreber">Datatilsynet</a></div>
+        </div>
       <div class="bekræftSletKnap">
-      <input type="checkbox" id="advarselsBox" th:attr="data-target='#myButton'"/>
         <img id ="advarselBillede" src="gultskilt.png">
-        <text> Du er nu ved at slette person oplysninger. Sørg for at du overholde gældende lovgivning! </text>
+        <input type="checkbox" id="advarselsBox" th:attr="data-target='#myButton'"/>
       </div>
-      <br>
-      <br>
+        <div class = "content contentDanish">
+        <text> Du er nu ved at slette person oplysninger. Sørg for at du overholde gældende lovgivning! </text>
+        </div>
+        <div class = "content contentEnglish">
+          <text> You are about to delete Personal information. Make sure you are complying with laws and legislation! </text>
+        </div>
       <div class = "content contentDanish">
         <th: for="idnr" >ID nummer på personen</th:>
       </div>

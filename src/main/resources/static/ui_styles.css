@@ -36,7 +36,19 @@ a{
 	border-radius: 40px;
 	background: linear-gradient(grey,#00008B);
 }
+.datatilsynet a{
+	position: relative;
+	display: inline-block;
+	color: #fff;
+	text-decoration: none;
+	font-family: sans-serif;
+	font-weight:bold;
+	font-size: 16px;
+	letter-spacing: 2px;
+	margin-left: 15px;
+	padding: 5px 5px;
 
+}
 .adminKnap {
 	position: fixed;
 	bottom: 8px;
@@ -105,6 +117,7 @@ float: left;
 
 .overskrift{
 font-size: 40px;
+	margin-bottom: 25px;
 }
 
 #billede{
@@ -297,11 +310,26 @@ margin-bottom: 50px;
 	display: table;
 }
 
+.container .grid-container{
+	display: none;
+
+}
+.container .grid-container.contentDanish{
+	display:grid;
+}
+.check:checked ~ .grid-container.contentDanish{
+	display: none;
+}
+.check:checked ~ .grid-container.contentEnglish {
+	display: grid;
+}
+
 .underrubrik {
 	padding-top: 20px;
 	display: flex;
 	justify-content: center;
 	color: grey;
+	padding-bottom: 20px;
 }
 [type=submit].gemSprog{
 	float:right;
@@ -335,15 +363,14 @@ margin-bottom: 50px;
 	float:left;
 }
 
-.firmalistKnap{
-	margin-left: 250px;
-	float: top;
+.grid-container
+{
+	max-width: 1350px;
+	margin: 0 auto;
+	display:grid;
+	grid-template-columns: repeat(3,1fr);
 }
-
-.udtraek{
-	margin-left: 700px;
-}
-
-.sletknapAdmin{
- 	margin-left: 1000px;
+.grid-container > div
+{
+	text-align: center;
 }
