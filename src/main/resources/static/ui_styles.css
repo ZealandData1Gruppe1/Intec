@@ -3,8 +3,15 @@ body{
 	flex-direction: column;
 	min-height: 100vh;
 	background: white;
-	overflow: hidden;
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
+body::-webkit-scrollbar{
+	display: none;
+}
+
+
 
 .container .item:nth-child(2){ /*Only second item padding and center text*/
   padding-left: 1em;
