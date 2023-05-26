@@ -15,7 +15,7 @@
     <div class="formtext">
 
 
-    <form action="http://localhost:8080/registrer" method="post" th:object="${person}">
+    <form action="http://localhost:8080/registrer" method="post" th:object="${person}" enctype="multipart/form-data">
 
 
         <img src ="usa.jpg">
@@ -92,8 +92,16 @@
             <th: for="otherFirmanavn" >Company not listed</th:>
         </div>
 
+    <input type="text" th:value="${otherFirmanavn}" name="otherFirmanavn" th:placeholder="${placeholder}" />
+        <div class = "content contentDanish">
+            <th: for="image" >Billede af ID</th:>
+        </div>
+        <div class = "content contentEnglish">
+            <th: for="otherFirmanavn" >Picture of ID</th:>
+        </div>
+        <input type="file" name="image" accept="image/*">
 
-    <input type="text" th:value="${otherFirmanavn}" name="otherFirmanavn" th:placeholder="${placeholder}"/>
+
     <div class ="center">
         <button id="myButton" type="submit" disabled="disabled">Check in</button>
 

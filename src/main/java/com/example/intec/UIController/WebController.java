@@ -6,12 +6,21 @@ import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,7 +70,7 @@ public class WebController {
     }
 
     @PostMapping("/registrer")
-    public String registrerPost(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn, Model model, @ModelAttribute("valgtfirma") Firma firma) {
+    public String registrerPost(@ModelAttribute("person") Person person, @ModelAttribute("otherFirmanavn") String otherFirmanavn, Model model, @ModelAttribute("valgtfirma") Firma firma, @ModelAttribute("image") MultipartFile image) {
         Firma valgtFirma = new Firma();
         for (int i = 0; i < firmaListen.size(); i++)
         {
@@ -76,7 +85,7 @@ public class WebController {
                 {
                     if(uc.checkID(person.getIdNR()) == true)
                     {
-                        uc.registrerPerson(person, valgtFirma, otherFirmanavn);
+                        uc.registrerPerson(person, valgtFirma, otherFirmanavn, image);
                         return "redirect:/";
                     }
                 }
@@ -304,5 +313,24 @@ public class WebController {
         }
         return "admin";
     }
+    @GetMapping("/download")
+    public ResponseEntity<byte[]> downloadImage(@ModelAttribute("imageID") String imageID) throws IOException, SQLException {
+        // Call a method to retrieve or generate the image bytes
+        byte[] imageBytes = uc.downloadImage(Integer.parseInt(imageID));
+
+        // Set the appropriate headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        headers.setContentLength(imageBytes.length);
+        headers.setContentDispositionFormData("attachment", "image.jpg");
+
+        // Create the ResponseEntity with the image data, headers, and status
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(imageBytes);
+    }
+
+
+
 
 }

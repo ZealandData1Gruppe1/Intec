@@ -115,6 +115,16 @@
       </table>
     </form>
 
+    <form action="http://localhost:8080/download" method="get">
+      <div class = "content contentDanish">
+        <th: for="imageID" >Download Billede til registrerings ID:</th:>
+      </div>
+      <div class = "content contentEnglish">
+        <th: for="imageID" >Download iamge for registration ID:</th:>
+      </div>
+      <input type="text" th:value="${imageID}" name="imageID" />
+      <input type="submit" value="Accept">
+    </form>
   </div>
 </div>
 </div>

@@ -49,10 +49,16 @@ public class DataController {
     public void insertRegistration(Registrering r)
     {
         try {
-            String sql= "insert into registration (checkin, pid, locationid, cid) VALUES ('"+timeFormatter(r.getTjekinTidspunkt()) +"' , "+r.getRegistreringPerson().getIdNR()+" , "+locationID+" , "+r.getFirma().getID()+")";
-        Statement stmt = connection.createStatement();
-        stmt.execute(sql);
-        stmt.close();
+
+            String sql = "INSERT INTO registration (checkin, pid, locationid, cid, image) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, timeFormatter(r.getTjekinTidspunkt()));
+            statement.setInt(2, r.getRegistreringPerson().getIdNR());
+            statement.setInt(3, locationID);
+            statement.setInt(4, r.getFirma().getID());
+            statement.setBytes(5, r.getImage());
+
+            statement.executeUpdate();
     } catch (SQLException e) {
         throw new RuntimeException(e);
     }
@@ -405,5 +411,16 @@ public class DataController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public byte[] getImageData(int id) throws SQLException {
+            String sql = "SELECT image FROM registration WHERE id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getBytes("image");
+            }
+        }
+        return null;
     }
 }

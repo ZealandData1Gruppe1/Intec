@@ -5,7 +5,10 @@ import com.example.intec.Entititer.Login;
 import com.example.intec.Entititer.Firma;
 import com.example.intec.Entititer.Person;
 import com.example.intec.Entititer.Registrering;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.TimeZone;
@@ -33,7 +36,7 @@ public class Usecase {
         this.displayEnglish = displayEnglish;
     }
 
-    public void registrerPerson(Person p, Firma f, String otherfirma) {
+    public void registrerPerson(Person p, Firma f, String otherfirma, MultipartFile image) {
         Person person = new Person();
         Firma firma = new Firma();
         if (f.getFirmanavn() == null) {
@@ -58,6 +61,11 @@ public class Usecase {
             person = p;
         Date nu = new Date();
         Registrering r = new Registrering(person,firma, nu, location);
+        try {
+            r.setImage(image);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         db.insertRegistration(r);
 
     }
@@ -202,7 +210,10 @@ public class Usecase {
         db.logDatabaseSoegning(userVerified.getIdNR(), searchID+searchStart+searchEnd);
         return db.getRegistrationIDTime(idnr,startdato,slutdato);
     }
+    public byte[] downloadImage(int id) throws SQLException {
 
+        return db.getImageData(id);
+    }
 
 }
 

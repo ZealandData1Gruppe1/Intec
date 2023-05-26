@@ -1,5 +1,8 @@
 package com.example.intec.Entititer;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.Date;
 import java.time.LocalDate;
 
@@ -9,6 +12,7 @@ public class Registrering {
     private Date tjekinTidspunkt;
     private String lokation;
     private Firma firma;
+    private byte[] image;
 
     public Registrering()
     {
@@ -61,6 +65,14 @@ public class Registrering {
 
     public void setFirma(Firma firma) {
         this.firma = firma;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile file) throws IOException {
+        this.image = file.getBytes();
     }
 
     @Override
