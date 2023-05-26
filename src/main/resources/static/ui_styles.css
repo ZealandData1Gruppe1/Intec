@@ -12,12 +12,6 @@ body::-webkit-scrollbar{
 }
 
 
-
-.container .item:nth-child(2){ /*Only second item padding and center text*/
-  padding-left: 1em;
-  padding-right: 1em;
-  text-align: center;
-}
 a{
 	position: relative;
 	display: inline-block;
@@ -30,22 +24,21 @@ a{
     background: linear-gradient(grey,#00008B);
 }
 
-.indexknap{
-	position: relative;
-	display: inline-block;
-	padding: 12px 36px;
-    margin-bottom: 15px;
+.indexknap a{
+	padding: 25px 200px;
+	margin-bottom: 20px;
 	color: #fff;
 	text-decoration: none;
 	font-family: sans-serif;
 	font-weight:bold;
-	font-size: 50px;
+	font-size: 40px;
 	letter-spacing: 2px;
 	border-radius: 40px;
-    background: linear-gradient(grey,#00008B);
+	background: linear-gradient(grey,#00008B);
 }
+
 .adminKnap {
-	position: absolute;
+	position: fixed;
 	bottom: 8px;
 	right: 16px;
 	font-size: 18px;
@@ -60,8 +53,6 @@ a{
 	border-radius: 40px;
 	background: linear-gradient(grey,#00008B);
 }
-
-
 .video{
  display: block;
  margin: auto;
@@ -180,6 +171,25 @@ margin-bottom: 50px;
 	display: table;
 }
 
+.container .indexknap{
+	display: none;
+
+}
+.container .indexknap.contentDanish{
+	display:flex;
+	position:absolute;
+	left:calc(50% - 350px);
+	top:calc(0% + 25px);
+}
+.check:checked ~ .indexknap.contentDanish{
+	display: none;
+}
+.check:checked ~ .indexknap.contentEnglish{
+	display:flex;
+	position:absolute;
+	left:calc(50% - 350px);
+	top:calc(0% + 25px);
+}
 .check {
 	position: relative;
 	width: 50px;
@@ -240,7 +250,6 @@ margin-bottom: 50px;
 	margin-bottom: 10px;
 }
 .styled-table {
-
 	border-collapse: collapse;
 	margin-top: 30px;
 	margin-left : auto;
@@ -296,12 +305,11 @@ margin-bottom: 50px;
 }
 [type=submit].gemSprog{
 	float:right;
-
-	width: 150px;
+	width: 175px;
 	background: linear-gradient(grey,#00008B);
 	color: #fff;
 	padding: 5px 5px 5px 5px;
-	margin: 8px 0;
+	margin: 2px 0;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
