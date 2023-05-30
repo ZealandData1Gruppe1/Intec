@@ -1,67 +1,91 @@
 package com.example.intec.Usecase;
 
 import com.example.intec.Entititer.Firma;
+import com.example.intec.Entititer.Login;
+import com.example.intec.Entititer.Person;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UsecaseTest {
- Usecase uc = new Usecase();
-    @Test
-    void tjekAtViKanHenteTransportFirmaFraDatabasen() {
-        Firma result = uc.hentTransportFirma("POSTNORD");
-        assertEquals("POSTNORD",result.getFirmanavn());
-    }
-    @Test
-    void tjekAtDenIkkeReturnereNogetNårDenIkkeFindesIDatabasen(){
-        Firma result = uc.hentTransportFirma("Test");
-        assertEquals(null,result.getFirmanavn());
-    }
-
-    @Test
-    void tjekAtSidsteFirmaIArraylistenErOTHER() {
-        ArrayList<Firma> result = uc.hentTransportFirmaer();
-        assertEquals(result.get(result.size()-1).getFirmanavn(),"OTHER");
-    }
-    @Test
-    void tjekAtSidsteFirmaIArraylistenErIkkeOTHER(){
-        ArrayList<Firma> result = uc.hentTransportFirmaer();
-        assertNotEquals(result.get(result.size()-1).getFirmanavn(),"POSTNORD");
-    }
+    Usecase uc = new Usecase();
 
     @Test
     void TjekkerAtFunktionFindesPersonKanIdentifisereOmEnPersonFindesIDatabsenEllerEj() {
         Boolean result = uc.findesPerson(2323);
-        assertEquals(true,result);
+        assertEquals(true, result);
     }
+
     @Test
-    void tjekkerAtFunktionFindesPersonIkkeReturnereTrueNårPersonenIkkeFindes(){
+    void tjekkerAtFunktionFindesPersonIkkeReturnereTrueNårPersonenIkkeFindes() {
         Boolean result = uc.findesPerson(0);
+        assertEquals(false, result);
+    }
+
+    @Test
+    void TjekkerAtFunktionFindesCompanyKanIdentifisereOmEtTransportCompanyFindesIDatabsenEllerEj() {
+        Boolean result = uc.findesCompany("POSTNORD");
+        System.out.println();
+        assertEquals(true, result);
+    }
+
+    @Test
+    void tjekkerAtFunktionFindesTranportCompanyIkkeReturnereTrueNårTransporCompanyIkkeFindes() {
+        Boolean result = uc.findesCompany("yyyyyyyyyyyyyyyyyyyyyyyu");
+        assertEquals(false, result);
+    }
+
+    @Test
+    void testerAtViIkkeKanHenteEtLoginMedEnForkertRolle() {
+        Login l = new Login();
+        l.setBrugernavn("Test");
+        NullPointerException thrown = Assertions.assertThrows(NullPointerException.class, () -> {
+            uc.adminLogin(l);
+
+        });
+    }
+
+    @Test
+    void testerNullPointExeptionNårBilledetIkkeEksistere()  {
+        NullPointerException thrown = Assertions.assertThrows(NullPointerException.class, () ->{
+            byte[] result = uc.downloadImage(0);
+            byte test = result[5];
+        });
+    }
+
+    @Test
+    void testOmEnsNavnKanBeståAfPunktum() {
+        Boolean result = uc.checkNavnForIkkeBogstaver("MR.BEAN");
         assertEquals(false,result);
     }
 
+    @Test
+    void testOmEnsNavnKanBeståAfGræskeBogstaver() {
+        Boolean result = uc.checkNavnForIkkeBogstaver("βerta");
+        assertEquals(true,result);
+    }
 
     @Test
-    void TjekkerAtFunktionFindesTransportCompanyKanIdentifisereOmEtTransportCompanyFindesIDatabsenEllerEj() {
-        Boolean result = uc.findesTransportCompany("POSTNORD");
-        assertEquals(true,result);
-    }
-    @Test
-    void tjekkerAtFunktionFindesTranportCompanyIkkeReturnereTrueNårTransporCompanyIkkeFindes(){
-        Boolean result = uc.findesTransportCompany("Test");
+    void testOmEnsNavnKanBeståAfBindestreg() {
+        Boolean result = uc.checkNavnForIkkeBogstaver("Jens-Peter");
         assertEquals(false,result);
     }
+
     @Test
-    void TjekkerAtFunktionFindesOtherCompanyKanIdentifisereOmEtOtherCompanyFindesIDatabsenEllerEj() {
-        Boolean result = uc.findesOtherCompany("Zealand");
+    void testOmEnsNavnKanBeståAfKinesiskeBogstaver() {
+        Boolean result = uc.checkNavnForIkkeBogstaver("的emil");
         assertEquals(true,result);
     }
+
     @Test
-    void tjekkerAtFunktionFindesOtherCompanyIkkeReturnereTrueNårOtherCompanyIkkeFindes(){
-        Boolean result = uc.findesOtherCompany("Test");
+    void testOmNavnInputIkkeKanManipulereDatabasen() {
+        Boolean result = uc.checkNavnForIkkeBogstaver("DROP TABLE log");
         assertEquals(false,result);
     }
+
 
 }

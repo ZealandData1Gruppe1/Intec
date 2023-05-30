@@ -136,7 +136,6 @@ public class Usecase {
     }
     public Boolean shouldDisplayEnglish()
     {
-
         if( location.equalsIgnoreCase("Haslev"))
         {
             return false;
@@ -210,9 +209,13 @@ public class Usecase {
         db.logDatabaseSoegning(userVerified.getIdNR(), searchID+searchStart+searchEnd);
         return db.getRegistrationIDTime(idnr,startdato,slutdato);
     }
-    public byte[] downloadImage(int id) throws SQLException {
+    public byte[] downloadImage(int id)  {
 
-        return db.getImageData(id);
+        try {
+            return db.getImageData(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
