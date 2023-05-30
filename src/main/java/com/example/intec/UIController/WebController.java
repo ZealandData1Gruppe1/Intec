@@ -230,30 +230,44 @@ public class WebController {
     }
 
     @PostMapping("/historik")
-    public String visHistorik(@ModelAttribute("idnr") String idnr,@ModelAttribute("startdato") String startdato,@ModelAttribute("slutdato") String slutdato)
+    public String visHistorik(@ModelAttribute("idnr") String idnr,@ModelAttribute("startdato") String startdato,@ModelAttribute("slutdato") String slutdato, Model model)
     {
+
+        int id;
+        String error = "";
+
         if (idnr.equals("")){
             idnr = "0";
-    }
+        }
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date start = null;
         Date slut = null;
-        if(startdato.trim().isEmpty()== false) {
+        if(startdato.trim().isEmpty()== false && slutdato.trim().isEmpty()== false) {
             try {
                 start = formater.parse(startdato);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-
-            try {
                 slut = formater.parse(slutdato);
             } catch (ParseException e) {
-                throw new RuntimeException(e);
+                model.addAttribute("fejl", error);
+                return "/historik";
+            }
+            id = Integer.parseInt(idnr);
+            historikListen = uc.getHistoryData(id,start,slut);
+            return "redirect:/historik";
+        }
+        if (startdato.trim().isEmpty()== true && slutdato.trim().isEmpty()== true){
+            if (idnr.equals("0")){
+                model.addAttribute("fejl", error);
+                return "/historik";
+            }
+            else{
+                id = Integer.parseInt(idnr);
+                historikListen = uc.getHistoryData(id,start,slut);
+                return "redirect:/historik";
             }
         }
-        int id = Integer.parseInt(idnr);
-        historikListen = uc.getHistoryData(id,start,slut);
-        return "redirect:/historik";
+
+        model.addAttribute("fejl", error);
+        return "/historik";
     }
 
     @GetMapping("/fjernFirma")

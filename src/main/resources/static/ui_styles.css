@@ -1,4 +1,6 @@
 body{
+    margin:0;
+    padding:0;
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
@@ -50,7 +52,6 @@ a{
 
 }
 .adminKnap {
-	position: fixed;
 	bottom: 8px;
 	right: 16px;
 	font-size: 18px;
@@ -374,3 +375,61 @@ margin-bottom: 50px;
 {
 	text-align: center;
 }
+
+
+.udtraekFejl{
+
+	text-align:center;
+    color:red;
+}
+
+
+
+footer{
+	display:grid;
+	font-family: sans-serif;
+	position:relative;
+	width: 100%;
+	height:auto;
+	padding: 50px 100x;
+	background: #F5F5DC;
+	margin-top: 30px;
+	border-top: 20px solid #00008b;
+
+}
+
+footer .container{
+	width: 100%;
+	display:grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+
+}
+h2{
+	margin-bottom: 20px;
+}
+
+#copyright{
+	font-size:10;
+}
+
+.videoFormat{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:#333;
+    color:white;
+    margin-bottom:100px;
+    padding: 200px 0;
+    position:relative;
+    overflow: hidden;
+}
+
+.videoForside{
+    margin-top:30px;
+    position:absolute;
+    left:0;
+    min-width:100%;
+    min-height:100%;
+}
+
