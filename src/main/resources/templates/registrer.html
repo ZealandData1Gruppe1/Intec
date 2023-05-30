@@ -30,6 +30,40 @@
         </div>
         <br>
 
+
+        <div class = "content contentDanish">
+            <div class ="center">
+                <div class = "successMeddelelse">
+                    <td th:if="${success}" class="error">Du er nu registreret.
+
+                        <script>
+                    var timer = setTimeout(function() {
+                    window.location='http://localhost:8080/'
+                    }, 8000);
+                </script>
+
+                    </td>
+                </div>
+            </div>
+        </div>
+        <div class = "content contentEnglish">
+            <div class ="center">
+                <div class = "successMeddelelse">
+                    <td th:if="${success}" class="error"> You are now registered
+                        <script>
+                    var timer = setTimeout(function() {
+                    window.location='http://localhost:8080/'
+                    }, 8000);
+                </script>
+                    </td>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
         <div class = "content contentDanish">
              <div class ="center">
                  <text class = "overskrift"> Indtast dine oplysninger </text>
@@ -106,8 +140,8 @@
 
     <div class ="center">
         <button id="myButton" type="submit" disabled="disabled">Check in</button>
-
     </div>
+
         <div class = "content contentDanish">
     <div class ="center">
      <td th:if="${opretError}" class="error">Fejl i indtastning, prøv igen. </td>
@@ -120,6 +154,7 @@
         </div>
 
     </form>
+
         <script th:inline="javascript">
             $(document).ready(function() {
                 $('#GDPRbox').click(function() {
@@ -128,6 +163,13 @@
                 });
             });
         </script>
+
+
+
+
+
+
+
 </div>
 </div>
 

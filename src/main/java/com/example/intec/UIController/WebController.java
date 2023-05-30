@@ -85,8 +85,11 @@ public class WebController {
                 {
                     if(uc.checkID(person.getIdNR()) == true)
                     {
+                        String success = "du er oprettet";
+                        model.addAttribute("success", success);
                         uc.registrerPerson(person, valgtFirma, otherFirmanavn, image);
-                        return "redirect:/";
+                        //return "redirect:/";
+                        return "registrer";
                     }
                 }
             }
