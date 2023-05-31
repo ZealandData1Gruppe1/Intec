@@ -38,7 +38,6 @@ class UsecaseTest {
         Boolean result = uc.findesCompany("yyyyyyyyyyyyyyyyyyyyyyyu");
         assertEquals(false, result);
     }
-
     @Test
     void testerAtViIkkeKanHenteEtLoginMedEnForkertRolle() {
         Login l = new Login();
@@ -48,7 +47,6 @@ class UsecaseTest {
 
         });
     }
-
     @Test
     void testerNullPointExeptionNårBilledetIkkeEksistere()  {
         NullPointerException thrown = Assertions.assertThrows(NullPointerException.class, () ->{
@@ -56,25 +54,21 @@ class UsecaseTest {
             byte test = result[5];
         });
     }
-
     @Test
     void testOmEnsNavnKanBeståAfPunktum() {
         Boolean result = uc.checkNavnForIkkeBogstaver("MR.BEAN");
         assertEquals(false,result);
     }
-
-    @Test
-    void testOmEnsNavnKanBeståAfGræskeBogstaver() {
-        Boolean result = uc.checkNavnForIkkeBogstaver("βerta");
-        assertEquals(true,result);
-    }
-
     @Test
     void testOmEnsNavnKanBeståAfBindestreg() {
         Boolean result = uc.checkNavnForIkkeBogstaver("Jens-Peter");
         assertEquals(false,result);
     }
-
+    @Test
+    void testOmEnsNavnKanBeståAfGræskeBogstaver() {
+        Boolean result = uc.checkNavnForIkkeBogstaver("βerta");
+        assertEquals(true,result);
+    }
     @Test
     void testOmEnsNavnKanBeståAfKinesiskeBogstaver() {
         Boolean result = uc.checkNavnForIkkeBogstaver("的emil");
