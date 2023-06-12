@@ -26,6 +26,7 @@ public class Usecase {
     public Usecase() {
         this.db = getInstance(setLocation());
         setLocation();
+        shouldDisplayEnglish();
     }
 
     public boolean getDisplayEnglish() {
@@ -120,10 +121,13 @@ public class Usecase {
 
         if (continentName.equals("Europe")) {
             location = "Haslev";
+            shouldDisplayEnglish();
             return location;
         } else {
             location = "Boston";
-            return location;}
+            shouldDisplayEnglish();
+            return location;
+        }
     }
     public String adminLogin (Login a){
         Login dataLogin = db.hentLogin(a.getBrugernavn());
@@ -134,17 +138,16 @@ public class Usecase {
         else
             return "false";
     }
-    public Boolean shouldDisplayEnglish()
+    public void shouldDisplayEnglish()
     {
         if( location.equalsIgnoreCase("Haslev"))
         {
-            return false;
+           displayEnglish = false;
         }
         if (location.equalsIgnoreCase("Boston"))
         {
-            return true;
+            displayEnglish = true;
         }
-        return true;
     }
     public Boolean sletOplysningerForID(int idnr){
         db.sletOplysningerOmPerson(idnr);

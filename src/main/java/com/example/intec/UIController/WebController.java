@@ -34,7 +34,7 @@ public class WebController {
     private ArrayList<Firma> firmaListen;
     private ArrayList<Registrering> historikListen;
 
-    boolean shouldDisplayEnglish = false;
+    boolean shouldDisplayEnglish = uc.getDisplayEnglish();
 
     @GetMapping("/registrer")
     public String registrer(Model model) {
@@ -53,7 +53,6 @@ public class WebController {
     }
     @GetMapping("/")
     public String visForside(Model model) {
-        shouldDisplayEnglish = uc.getDisplayEnglish();
         model.addAttribute("language",shouldDisplayEnglish);
         return "index";
     }

@@ -14,7 +14,10 @@
 </div>
 </header>
  <div class="container">
-        <form action="http://localhost:8080/" method="post" th:object="${language}">
+
+
+
+     <form action="http://localhost:8080/" method="post" th:object="${language}">
 
             <img src ="usa.jpg">
             <input type="checkbox" name="mycheckbox" class="check" th:checked="${language} ? 'checked'">
